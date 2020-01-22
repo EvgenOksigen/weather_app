@@ -1,11 +1,13 @@
 import React from 'react';
-import Info from './components/info';
-import Form from './components/form';
+import Info from './components/Info';
+import Form from './components/Form';
 import Weather from './components/Weather';
+import ReduxTest from './components/ReduxTest';
 
-import './App.css';
+import './wrapper.css';
+import { API_KEY } from './helpers';
 
-const API_KEY = "9ea6825b8b5dae9d2dafb3fa6056126c";
+
 
 class App extends React.Component{
 
@@ -15,15 +17,16 @@ class App extends React.Component{
     country : undefined ,
     sunrise : undefined,
     sunset : undefined,
+    isShowing: false,
     error : undefined
   }
 
   gettingWeather = async(e) => {
+    e.preventDefault();
     const city = e.target.elements.city.value;
+    
     if(city){
       
-      
-      e.preventDefault();
       const api_url = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}`);
       const data = await api_url.json();
       
@@ -49,6 +52,18 @@ class App extends React.Component{
       })
     }
 
+    else{
+      this.setState({        
+          temp : undefined,
+          city : undefined,
+          country : undefined ,
+          sunrise : undefined,
+          sunset : undefined,
+          isShowing: true,
+          error : "ERROR : Введите название города !"
+      })
+    }
+
     
 
   }
@@ -56,16 +71,20 @@ class App extends React.Component{
 
   render() {
     return(
-      <div className="App">
-        <Info/>
-        <Form getWeather={this.gettingWeather} />
-        <Weather temp={this.state.temp}
-                 city={this.state.city}
-                 country={this.state.country}
-                 sunrise={this.state.sunrise}
-                 sunset={this.state.sunset}
-                 error={this.state.error}
-                 />
+      <div className="wrapper">
+        <div className="container">
+              <Info/>
+              <Form getWeather={this.gettingWeather} />
+              <Weather temp={this.state.temp}
+                      city={this.state.city}
+                      country={this.state.country}
+                      sunrise={this.state.sunrise}
+                      sunset={this.state.sunset}
+                      error={this.state.error}
+                      />
+                      <ReduxTest />
+
+        </div>
       </div>
     )
   }
