@@ -1,1 +1,1 @@
-export { default as forms } from "./forms";
+export { default as contacts } from './search';

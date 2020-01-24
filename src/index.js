@@ -12,10 +12,9 @@ import './index.css';
 import * as serviceWorker from './serviceWorker';
 
 
-
 ReactDOM.render(
   <Provider store={store}>
-    <App/>
+  <App />
   </Provider>
   , document.getElementById('root'));
 

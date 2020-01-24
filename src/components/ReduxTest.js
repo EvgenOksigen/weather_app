@@ -1,19 +1,17 @@
-import React, { useEffect, setState, useState } from 'react';
+import React, { useState } from 'react';
 import {connect} from 'react-redux';
-import { show, hide, getWeather, setCity } from '../state/ducks/forms/actions';
+import { getWeather } from '../state/ducks/forms/actions';
 
 
-const ReduxTest = ({city, show, getWeather, forms, setCity})=> {
+const ReduxTest = ({ getWeather, data })=> {
 
   const [cityvalue, setCityValue] = useState("");
 
-
   const inputHandle = (e) => {
-    setCityValue( e.target.value);
+    setCityValue( e.target.value );
   }
 
-
-  return <div> redux test in console
+  return (
     <div>
       <input name='city' 
       value={cityvalue}
@@ -23,18 +21,19 @@ const ReduxTest = ({city, show, getWeather, forms, setCity})=> {
       <button onClick={()=>getWeather(cityvalue)}>
         Get Weater
       </button>
-      <div>
-      </div>
+      <p>Name : {data.name}</p>
+      <p>Country : {data.sys && data.sys.country}</p>
     </div>
-  </div>
-}
+    )
+  }
 
-const mapStateToProps = ({forms}) => ({
+const mapStateToProps = ({ forms }) => ({
   isShow: forms.isShowing,
-  city: forms.name
+  city: forms.name,
+  data: forms.data
 })
 
-const mapDispatchToProps = { hide, getWeather, setCity};
+const mapDispatchToProps = { getWeather };
 
 
 

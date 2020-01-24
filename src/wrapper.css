@@ -1,5 +1,5 @@
 .wrapper {
-  text-align: center;
+  text-align: left;
   width: 800px;
   margin: auto;
   min-height: 400px;
@@ -43,4 +43,8 @@
     rgba(41, 184, 229, 1) 100%
   );
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b3dced', endColorstr='#29b8e5', GradientType=1 );
+}
+
+.d-fx {
+  display: flex;
 }
