@@ -13,12 +13,11 @@ const startReducer = createReducer(initialState)({
   return{
     ...state,
     data,
-    findItems: data.map(el=>el.name)
+    findItems: data.map(el=>el.name).sort()
   }
 },
 
-  [types.SORT]: (state, {payload}) => {   
-    console.log(payload)
+  [types.SORT]: (state) => {   
 
     let data = state.data.sort((a, b) =>
         a.name !== b.name ? (a.name < b.name ? -1 : 1) : 0)
@@ -33,9 +32,9 @@ const startReducer = createReducer(initialState)({
 
       let regExp = new RegExp(`${payload}`, 'gi')
 
-      state.data.forEach(item => {
-      if (item.name.match(regExp)) {
-        findItems.push(item.name);
+      state.data.forEach(contact => {
+      if (contact.name.match(regExp)) {
+        findItems.push(contact.name);
       }
     });
 
@@ -69,14 +68,62 @@ const startReducer = createReducer(initialState)({
 
   [types.RESET] : (state) => {
 
-    localStorage.setItem('contacts', JSON.stringify(initialContacts));
+    localStorage.setItem('contacts', JSON.stringify(initialContacts.sort((a, b) =>
+    a.name !== b.name ? (a.name < b.name ? -1 : 1) : 0)));
     
     return{
       ...state,
-      findItems:initialContacts.map(item=>item.name),
+      findItems:initialContacts.map(item=>item.name).sort(),
       data: initialContacts
     }
+  }, 
+
+  [types.EDIT] : (state, {id}) => {
+    const contactListToEdit = [...state.data];
+    contactListToEdit.forEach(contact => {
+      if(contact.id === id){
+        contact.edit = !contact.edit
+      }
+     });
+     localStorage.setItem("contacts", JSON.stringify(contactListToEdit))
+    return{
+      ...state,
+      data : contactListToEdit
+    }
+  },
+
+  [types.EDIT_CONTACT] : (state, {id, value, field}) => {
+
+    let onlyNumber = new RegExp('^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$', 'im')
+
+    // console.log(value.match(onlyNumber));
+
+    
+    // let data = [];
+    
+    const contactListAfterEdit = [...state.data];
+
+    if (field === 'n'){
+      contactListAfterEdit.forEach(contact => {
+        if(contact.id === id){  
+          contact.name = value
+        }});
+    }else if (field === 'p'){
+      contactListAfterEdit.forEach(contact => {
+        if(contact.id === id){  
+          contact.phoneNumber = parseInt(value.match(onlyNumber));
+        }});
+    }
+    // data = contactListAfterEdit;
+    
+   // localStorage.setItem("contacts", JSON.stringify(contactListAfterEdit));
+
+    return{
+      ...state,
+      // data : contactListAfterEdit
+    }
   }
+
 
 });
 

@@ -3,3 +3,28 @@
   text-align: left;
   padding: 17px 0 0 15px;
 }
+
+.contact {
+  display: flex;
+  justify-content: space-between;
+}
+
+.contact p {
+  margin: 10px 0;
+}
+
+.contact-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.contact-buttons button {
+  background: none;
+  border: none;
+  outline: none !important;
+}
+
+.contact-buttons button:hover {
+  color: white;
+  outline: none;
+}

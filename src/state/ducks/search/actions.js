@@ -2,16 +2,14 @@ import * as types from "./types";
 
 
 export const onInit = (data) => {
-  
   return{
     type : types.INIT_CONTACTS,
     data
   }
 };
 
-export const sort = (arr) => ({
-  type : types.SORT,
-  payload: arr
+export const sort = () => ({
+  type : types.SORT
 });
 
 
@@ -28,6 +26,24 @@ export const deleteContact = (id) => {
   }
 };
 
-export const resetContacts = ()=> ({
+export const resetContacts = () => ({
   type: types.RESET
 });
+
+export const edit = (id, value, field) => {
+  return{ 
+    type: types.EDIT,
+    id,
+    value,
+    field
+  }
+};
+
+export const editContact = (id, value, field) => {
+  return {
+    type : types.EDIT_CONTACT,
+    id ,
+    value,
+    field// name or phone
+  }
+}

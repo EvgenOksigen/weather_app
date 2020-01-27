@@ -5,10 +5,13 @@ import "./search_style.css";
 import { find, sort, resetContacts } from "../../state/ducks/search/actions";
 
 const Search = ({ findItems, data, find, resetContacts }) => {
-  //
   const inputHandle = e => {
     find(e.target.value);
-    sort(findItems);
+    console.log(find(e.target.value));
+  };
+
+  const resetHandler = () => {
+    resetContacts();
   };
 
   return (
@@ -22,11 +25,14 @@ const Search = ({ findItems, data, find, resetContacts }) => {
         />
       </div>
       <hr />
+
       {findItems && findItems.map((el, index) => <p key={index}>{el}</p>)}
-      {findItems && (
+
+      {findItems.length < 1 && (
         <button
           onClick={() => {
-            resetContacts();
+            resetHandler();
+            sort();
           }}
         >
           reset

@@ -1,6 +1,8 @@
 import { createStore, applyMiddleware, combineReducers, compose } from "redux";
 import thunkMiddleware from "redux-thunk";
 import * as reducers from "./ducks";
+import { reducer as formReducer } from "redux-form";
+
 
 
 const composeEnhancer =
@@ -10,6 +12,6 @@ const composeEnhancer =
 
 export default createStore(
   (state, action) =>
-    combineReducers({ ...reducers })(state, action),
+    combineReducers({ ...reducers, form: formReducer })(state, action),
   composeEnhancer(applyMiddleware(thunkMiddleware))
 );
