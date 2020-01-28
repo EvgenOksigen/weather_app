@@ -79,27 +79,33 @@ const startReducer = createReducer(initialState)({
   }, 
 
   [types.EDIT] : (state, {id}) => {
-    const contactListToEdit = [...state.data];
+    let contactListToEdit = [...state.data];
+
     contactListToEdit.forEach(contact => {
       if(contact.id === id){
         contact.edit = !contact.edit
       }
      });
+
+     contactListToEdit.sort((a, b) => a.name !== b.name ? (a.name < b.name ? -1 : 1) : 0);
+
      localStorage.setItem("contacts", JSON.stringify(contactListToEdit))
+
     return{
       ...state,
-      data : contactListToEdit
+      data : contactListToEdit,
+      findItems : contactListToEdit.map(el=>el.name).sort()
     }
   },
 
   [types.EDIT_CONTACT] : (state, {id, value, field}) => {
 
-    let onlyNumber = new RegExp('^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$', 'im')
+    let onlyNumber = new RegExp('(\\d){8,11}', 'g')
 
-    // console.log(value.match(onlyNumber));
+    console.log(value.match(onlyNumber));
 
     
-    // let data = [];
+    let data = [];
     
     const contactListAfterEdit = [...state.data];
 
@@ -110,13 +116,19 @@ const startReducer = createReducer(initialState)({
         }});
     }else if (field === 'p'){
       contactListAfterEdit.forEach(contact => {
-        if(contact.id === id){  
-          contact.phoneNumber = parseInt(value.match(onlyNumber));
+        if(contact.id === id){
+          if (value.match(onlyNumber)){
+            let v = value.match(onlyNumber) || 0
+            contact.phoneNumber = v.toLocaleString().replace(/[\s.,%]/g, ''); 
+            console.log(parseInt(contact.phoneNumber));
+          }
+          debugger
+          return contact.phoneNumber
         }});
     }
-    // data = contactListAfterEdit;
+    data = contactListAfterEdit;
     
-   // localStorage.setItem("contacts", JSON.stringify(contactListAfterEdit));
+   localStorage.setItem("contacts", JSON.stringify(data));
 
     return{
       ...state,

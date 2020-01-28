@@ -6,10 +6,11 @@ import {
   deleteContact,
   edit,
   editContact
-} from "../../state/ducks/search/actions";
+} from "../../../state/ducks/search/actions";
 
 const ContactList = ({ data, deleteContact, edit, editContact }) => {
   //
+
   const EditContact = ({ contact, id }) => {
     //
     const nameInputHandler = e => {

@@ -1,0 +1,33 @@
+.login-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 450px;
+  padding: 60px;
+  margin: auto;
+  background-color: #afe892;
+  box-shadow: 0 3px 6px 3px #afe892;
+}
+.logo {
+  width: 200px;
+  margin-bottom: 60px;
+}
+
+.split-line {
+  width: calc(100% + 120px);
+  height: 1px;
+  background-color: rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
+}
+
+h1 {
+  font-size: 30px;
+  margin-bottom: 10px;
+}
+
+button {
+  margin-top: 10px;
+  width: 59%;
+  font-size: 12px;
+}

@@ -1,10 +1,9 @@
 import React from 'react';
-import Search from './components/Search/Search';
-import ContactList from './components/ContactList/ContactList';
+import Search from './views/components/Search/Search';
+import ContactList from './views/components/ContactList/ContactList';
 import './wrapper.css';
 import { connect } from 'react-redux';
 import { onInit, sort } from './state/ducks/search/actions';
-
 
 
 class App extends React.Component{

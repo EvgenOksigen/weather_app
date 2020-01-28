@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import Info from "../Info/Info";
 import "./search_style.css";
-import { find, sort, resetContacts } from "../../state/ducks/search/actions";
+import { find, sort, resetContacts } from "../../../state/ducks/search/actions";
 
 const Search = ({ findItems, data, find, resetContacts }) => {
   const inputHandle = e => {
