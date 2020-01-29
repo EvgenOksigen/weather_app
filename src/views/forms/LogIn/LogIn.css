@@ -29,5 +29,11 @@ h1 {
 button {
   margin-top: 10px;
   width: 59%;
-  font-size: 12px;
+  font-size: 14px;
+}
+
+.auth-form-field {
+  width: 300px;
+  display: flex;
+  justify-content: space-between;
 }

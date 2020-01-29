@@ -1,42 +1,88 @@
-import React from "react";
+import React, { Component } from "react";
 import { reduxForm, Field } from "redux-form";
-
 import "./LogIn.css";
+import { Button, Form, message } from "antd";
+import { connect } from "react-redux";
+import { compose } from "redux";
+import { signIn } from "../../../state/ducks/user/actions";
+import Input from "../../components/FormsComponent/SignInput/SignInput";
+// import Input from "../../components/FormsComponent/SignInput/SignInput";
 
-let LoginForm = ({ handleSubmit, submitting }) => {
+class LoginForm extends Component {
   //
-  console.log(submitting);
+  state = {
+    loading: false
+  };
 
-  function showResults(values) {
-    window.alert(`You submitted:\n\n${JSON.stringify(values, null, 2)}`);
+  formSubmit = e => {
+    e.preventDefault();
+
+    const { handleSubmit, signIn } = this.props;
+
+    handleSubmit(values => {
+      //
+      this.setState({ loading: false });
+
+      return signIn(values).then(() => {
+        this.setState({ loading: false });
+        message.success("Вы успешно вошли");
+      });
+      // TODO came from api
+      // .catch(err => {
+      //   this.setState({ loading: false });
+      //   message.error("Что-то пошло не так");
+      // });
+    })();
+  };
+
+  showResults = user => {
+    console.log(user);
+  };
+
+  render() {
+    return (
+      <Form
+        autoComplete="off"
+        className="login-form paper"
+        onSubmit={this.formSubmit}
+      >
+        <h1>Log in</h1>
+
+        <div className="auth-form-field">
+          <label> Email / name </label> {/*TODO */}
+          <Field
+            name="nameOrMail"
+            component={Input}
+            type="text"
+            placeholder="Email or username"
+          />
+        </div>
+
+        <div className="auth-form-field">
+          <label> Password </label>
+          <Field
+            name="password"
+            component={Input}
+            type="password"
+            placeholder="Password"
+          />
+        </div>
+
+        <Button disabled={false} htmlType="submit" type="primary">
+          Sign in
+        </Button>
+      </Form>
+    );
   }
+}
 
-  return (
-    <>
-      <form className="login-form paper" onSubmit={handleSubmit(showResults)}>
-        <div>
-          <label> First Name </label>
-          <Field name="firstName" component="input" placeholder="First Name" />
-        </div>
-        <div>
-          <label> Last Name </label>
-          <Field name="lastName" component="input" placeholder="Last Name" />
-        </div>
-        <div>
-          <label> Email </label>
-          <Field name="email" component="input" placeholder="Email" />
-        </div>
-        <button type="submit" disabled={submitting}>
-          Submit
-        </button>
-      </form>
-    </>
-  );
-};
+const mapStateToProps = ({ user }) => ({ user });
 
-LoginForm = reduxForm({
-  form: "login",
-  destroyOnUnmount: false
-})(LoginForm);
+const mapDispatchToProps = { signIn };
 
-export default LoginForm;
+const enhance = compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  reduxForm({ form: "login" })
+);
+
+export default enhance(LoginForm);

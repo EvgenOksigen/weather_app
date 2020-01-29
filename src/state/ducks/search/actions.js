@@ -44,6 +44,6 @@ export const editContact = (id, value, field) => {
     type : types.EDIT_CONTACT,
     id ,
     value,
-    field// name or phone
+    field
   }
 }

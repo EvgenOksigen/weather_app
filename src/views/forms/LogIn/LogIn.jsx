@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { reduxForm, Field, formValues, getFormValues } from "redux-form";
+import { reduxForm, Field, getFormValues } from "redux-form";
 import { connect } from "react-redux";
-import { Form, Button, Input } from "antd";
+import { Form, Button, Input, message } from "antd";
 import { compose } from "redux";
 
 // import { required } from "../../../helpers/validate";
@@ -20,25 +20,23 @@ class LogIn extends Component {
     e.preventDefault();
     console.log(this.props.form);
 
-    // const { handleSubmit, signIn } = this.props;
+    const { handleSubmit, signIn } = this.props;
 
-    // handleSubmit(values => {
-    // this.setState({ loading: true });
+    handleSubmit(values => {
+      this.setState({ loading: true });
 
-    // return signIn(values);
-    //   .then(() => {
-    //     this.setState({ loading: false });
+      return signIn(values)
+        .then(() => {
+          this.setState({ loading: false });
 
-    //     message.success("Ви успішно увійшли у систему E-Consul");
-    //   })
-    //   .catch(err => {
-    //     this.setState({ loading: false });
+          message.success("Ви успішно увійшли у систему E-Consul");
+        })
+        .catch(err => {
+          this.setState({ loading: false });
 
-    //     throwFormErrorJournal(err);
-
-    //     message.error("Щось пішло не так. Повторіть запит знову.");
-    //   });
-    // })();
+          message.error("Щось пішло не так. Повторіть запит знову.");
+        });
+    })();
   };
 
   render() {

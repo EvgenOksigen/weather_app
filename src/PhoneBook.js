@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { onInit, sort } from './state/ducks/search/actions';
 
 
-class App extends React.Component{
+class PhoneBook extends React.Component{
 
   componentDidMount(){
     const initialValues = JSON.parse(localStorage.getItem('contacts')) || []
@@ -28,5 +28,5 @@ class App extends React.Component{
 
 const mapDispatchToProps = { onInit, sort };
 
-export default connect(null, mapDispatchToProps)(App);
+export default connect(null, mapDispatchToProps)(PhoneBook);
   
