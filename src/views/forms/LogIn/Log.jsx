@@ -27,11 +27,6 @@ class LoginForm extends Component {
         this.setState({ loading: false });
         message.success("Вы успешно вошли");
       });
-      // TODO came from api
-      // .catch(err => {
-      //   this.setState({ loading: false });
-      //   message.error("Что-то пошло не так");
-      // });
     })();
   };
 

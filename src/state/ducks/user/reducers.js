@@ -4,32 +4,22 @@ import createReducer from "../../../utils/createReducer";
 const initialState = null;
 
 const signInReducer = createReducer(initialState)({
-  [types.SIGN_IN]: (state, { user }) => {
+  //
 
-    console.log(user);
-    
+  [types.SIGN_IN]: (state, { user }) => {
     return{
     isLogged: true,
     ...user
   }
 },
 
-  [types.SET_ME]: (state, { user }) => ({
+  [types.SET_ME]: (state, { user }) => {
+    return ({
     ...state,
     ...user,
-    permissions: [
-      ...user.permissions,
-      "reference.action.show",
-      "reference.action.create",
-      "reference.action.delete",
-      "reference.action.edit",
-      "racs.action.show",
-      "racs.action.create",
-      "racs.action.delete",
-      "racs.action.edit"
-    ],
     isLogged: true
-  }),
+  })
+}, 
 
   [types.SIGN_OUT]: () => null
 });

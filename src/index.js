@@ -7,20 +7,20 @@ import history from "./routes/history";
 
 import store from './state/store'
 
-// import App from './App';
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './index.css';
 
 import * as serviceWorker from './serviceWorker';
-import {App} from './routes/loadable';
+// import {App} from './routes/loadable';
+import Trello from './views/pages/Trello/Trello';
 
 
 ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
-      <App/>
-      {/* <App /> */}
+      {/* <App/> */}
+      <Trello/>
     </Router>
   </Provider>
   , document.getElementById('root'));

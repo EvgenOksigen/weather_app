@@ -2,10 +2,9 @@ import React from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 
-const DefaultRoute = ({ user }) => {
-  // debugger
+const DefaultRoute = ({user}) => {
   let path;
-
+  
   if (user) {
     path = "home";
   } else {
@@ -15,6 +14,8 @@ const DefaultRoute = ({ user }) => {
   return <Redirect to={path} />;
 };
 
-const mapStateToProps = ( {user} ) => ({user});
+const mapStateToProps = ( {user} ) => {
+  return({user})
+}
 
 export default connect(mapStateToProps)(DefaultRoute);

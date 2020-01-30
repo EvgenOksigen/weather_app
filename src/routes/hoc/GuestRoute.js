@@ -10,7 +10,6 @@ const GuestRoute = ({ component: Component, user, ...rest }) => (
         
         return <Component {...props} />;
       }
-      
       return <Redirect to="/" />;
     }}
   />

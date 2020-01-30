@@ -4,7 +4,7 @@ import React from "react";
 // import "../FormComponents.less";
 
 const Input = ({ input, meta: { touched, error }, type }) => {
-  console.log(input);
+  // console.log(input);
   return (
     <input
       {...input}
