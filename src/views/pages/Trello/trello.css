@@ -2,7 +2,29 @@
   width: 500px;
   margin: auto;
 }
+
+.taskList {
+  display: flex;
+  justify-content: space-evenly;
+}
+.taskList .not-finished,
+.taskList .finished {
+  border: 1px solid grey;
+  min-width: 202px;
+  min-height: 90px;
+}
+
+.taskItem:hover {
+  background-color: grey;
+  color: azure;
+}
+
+.taskList .not-finished {
+  text-align: left;
+}
+
 .taskList ul {
+  padding: 0;
   list-style-type: none;
 }
 

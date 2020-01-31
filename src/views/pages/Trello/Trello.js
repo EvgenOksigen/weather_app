@@ -37,6 +37,6 @@ const Trello = ({initTask}) => {
 
 
 
-const mapDispatchToProps = { initTask};
+const mapDispatchToProps = { initTask };
 
 export default connect(null, mapDispatchToProps)(Trello);

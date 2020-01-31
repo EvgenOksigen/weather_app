@@ -6,10 +6,6 @@ const initialState = {
   allTasks: []
 }
 
-// {id: 0, title: 'Create 1', completed: false },
-// {id: 1, title: 'Move 2', completed: false },
-// {id: 2, title: 'Done! 3', completed: false }
-
 const taskReducer = createReducer(initialState)({
   //
   [types.ADD_TASK]: (state, { payload }) => {
@@ -30,8 +26,7 @@ const taskReducer = createReducer(initialState)({
 
   [types.INIT_TASKS]: (state) => {
     let s = JSON.parse(localStorage.getItem("tasks"));
-    console.log(s);
-    
+    // console.log(s);
     if(s){
       return{
         ...state,
@@ -44,6 +39,23 @@ const taskReducer = createReducer(initialState)({
         ...state,
         allTasks: initialTasks
       }
+    }
+  },
+
+  [types.COMPLETE_TASK] : (state, {id}) => {
+
+    let allTasksUpdate = [...state.allTasks];
+
+    allTasksUpdate.map(task => {
+      if(task.id === parseInt(id) ){ //&& task.completed===false
+        task.completed = !task.completed
+      }
+    });
+
+    localStorage.setItem("tasks", JSON.stringify(allTasksUpdate))
+
+    return{
+      allTasks: allTasksUpdate
     }
   }
 });

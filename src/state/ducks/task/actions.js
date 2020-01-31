@@ -13,3 +13,11 @@ export const createTask = (payload) =>{
     payload
   }
 }
+
+export const taskComplete = (id) => {
+  
+  return {
+    type: types.COMPLETE_TASK,
+    id
+  }
+}
