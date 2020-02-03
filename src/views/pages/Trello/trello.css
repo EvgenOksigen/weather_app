@@ -1,17 +1,40 @@
-.tasks-dashboard {
-  width: 500px;
+.dashboard-container {
+  width: 900px;
   margin: auto;
+  min-height: 500px;
+  flex: 1;
+}
+.dashboard-content {
+  display: flex;
+  align-items: baseline;
+}
+.board {
+  display: flex;
 }
 
-.taskList {
+.task-list-container {
+  flex: 1;
+  padding: 8px;
+  background: ivory;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.task-list {
+  width: 272px;
+  margin: 0 4px;
+  display: flex;
+  justify-content: flex-start;
+  border: 1px solid grey;
+  flex-direction: column;
+  background: lightgrey;
+}
+
+.task-listHeader {
   display: flex;
   justify-content: space-evenly;
-}
-.taskList .not-finished,
-.taskList .finished {
-  border: 1px solid grey;
-  min-width: 202px;
-  min-height: 90px;
 }
 
 .taskItem:hover {
@@ -19,15 +42,61 @@
   color: azure;
 }
 
-.taskList .not-finished {
+.task-list .not-finished,
+.finished {
   text-align: left;
 }
 
-.taskList ul {
+.task-list ul {
   padding: 0;
   list-style-type: none;
 }
+button {
+  outline: none;
+}
+.add-column-btn {
+  outline: greenyellow;
+  text-align: left;
+}
+.add-list.btn {
+  border-radius: 50%;
+  background-color: darkgrey;
+  color: whitesmoke;
+  /* transition: 0.25s ease-in-out; */
+  outline: none;
+}
+.add-list.btn:hover {
+  background-color: white;
+  color: black;
+  box-shadow: 0 0px 6px 0px rgba(0, 0, 0, 0.5);
+  transform: rotate(720deg);
+  /*-moz-transform: rotate(90deg); /* Для Firefox */
+  /*-ms-transform: rotate(90deg); /* Для IE */
+  /*-webkit-transform: rotate(90deg); /* Для Safari, Chrome, iOS */
+  /*-o-transform: rotate(90deg); /* Для Opera */
+  transition: 0.5s ease-in-out;
+  outline: none;
+}
+.close-form-btn {
+  transform: rotate(45deg);
+  border-radius: 50%;
+  border: 0;
+  outline: none;
+}
+.add-task-list-form {
+  text-align: left;
+  position: relative;
+  padding: 8px;
+}
 
+.form-footer {
+  display: flex;
+  padding: 8px 0 0 0;
+}
+.form-footer .close {
+  margin-left: 10px;
+}
+/* /////////////////////////// */
 .lds-circle {
   display: inline-block;
   transform: translateZ(1px);
@@ -41,6 +110,17 @@
   background: blue;
   animation: lds-circle 2.4s cubic-bezier(0, 0.2, 0.8, 1) infinite;
 }
+
+.column-title {
+  padding: 8px 0 0 0;
+}
+
+.add-form-title {
+  height: 33px;
+  font-size: 24px;
+  margin-bottom: 8px;
+}
+
 @keyframes lds-circle {
   0%,
   100% {

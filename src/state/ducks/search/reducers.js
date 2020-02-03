@@ -102,9 +102,6 @@ const startReducer = createReducer(initialState)({
 
     let onlyNumber = new RegExp('(\\d){8,11}', 'g')
 
-    console.log(value.match(onlyNumber));
-
-    
     let data = [];
     
     const contactListAfterEdit = [...state.data];
@@ -120,7 +117,6 @@ const startReducer = createReducer(initialState)({
           if (value.match(onlyNumber)){
             let v = value.match(onlyNumber) || 0
             contact.phoneNumber = v.toLocaleString().replace(/[\s.,%]/g, ''); 
-            console.log(parseInt(contact.phoneNumber));
           }
           debugger
           return contact.phoneNumber

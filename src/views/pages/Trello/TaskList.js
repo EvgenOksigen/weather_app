@@ -1,52 +1,33 @@
 import React from 'react'
 import TaskItem from './TaskItem';
 import { connect } from 'react-redux';
+import AddTask from './AddTask'
 
-const TaskList = ( {allTasks} ) => {
-  
+const TaskList = ( {tasks, title, id } ) => {
+
   return(
-      <>
-      <label>Task list:</label>
-
-      <div className='taskList taskListHeader'>
-        <label>Unfinished tasks</label>
-        <label>Finished tasks</label>
-      </div>
-      
-      <div className="taskList">
-        
-        <div className='not-finished'>
+    <div className="task-list">
+        <h3>{title}</h3>
+      <div id={id}
+           className={`${title.toLowerCase()} task-list-container`}>
         <ul>
-          {allTasks.map((task, index) => {
+          {tasks.map((task, index) => {
             if(!task.completed){
-             return <li className='taskItem'
-                        key={index}>
+              return <li className='taskItem'
+              key={index}>
                 <TaskItem task={task} key={task.id} index={index} />
               </li>
             }
           })
-          }
+        }
         </ul>
-        </div>
-        <div className='finished'>
-          <ul>
-            {allTasks.map((task, index) => {
-              if(task.completed){
-                return <li className='taskItem'
-                           key={index}>
-                  <TaskItem task={task} key={task.id} index={index} />
-                  </li>
-              }
-            })
-            }
-          </ul>
-        </div>
+        <AddTask />
+      </div>
     </div>
-    </>
   )
 }
 
 
-const mapStateToProps = ({ allTasks: {allTasks} })=> ({allTasks});
+const mapStateToProps = ({ allTasks: {taskList} })=> ({taskList});
 
 export default connect(mapStateToProps, null)(TaskList);

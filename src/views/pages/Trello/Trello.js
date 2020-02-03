@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import TaskList from './TaskList'
 import './trello.css'
-import AddTask from './AddTask'
 import Loader from './Loader'
 import { connect } from 'react-redux'
 import { initTask } from '../../../state/ducks/task/actions'
-
-
+import Dashboard from './Dashboard'
 
 const Trello = ({initTask}) => {
   
@@ -17,18 +14,18 @@ const Trello = ({initTask}) => {
       initTask();
       setLoading(false)
     }
-    , 2800);
+    , 2700);
     return () => clearTimeout(timer);
   }, [initTask]);
 
   return (
-    <div className="tasks-dashboard">
+    <div className="dashboard-container">
       {loading ?  <Loader/> : (
         <>
-          <h3> Hello in TrELLO! </h3>
-          <p className="">Create a task: </p>
-          <AddTask/>
-          <TaskList/>
+          <h1>Dashboard</h1>
+          <div className="dashboard-content">
+            <Dashboard />
+          </div>
         </>
       )}
     </div>

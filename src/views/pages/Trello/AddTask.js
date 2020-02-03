@@ -26,11 +26,18 @@ import { createTask } from '../../../state/ducks/task/actions';
    }
 
   return (
-    <form onSubmit={formSubmit}>
-      <input {...input.bind}/>
-      <button type="submit"> Add </button>
-      </form>
+    <div className="card-composer">
 
+      <label className="composer-title">Create a task: </label>
+
+      <form onSubmit={formSubmit}>
+      
+        <input {...input.bind}/>
+      
+        <button type="submit"> Add </button>
+      
+      </form>
+    </div>
     )
  }
 

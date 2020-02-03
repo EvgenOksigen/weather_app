@@ -21,3 +21,11 @@ export const taskComplete = (id) => {
     id
   }
 }
+
+export const createNewCollum = (title) =>{
+  
+  return{
+    type: types.CREATE_NEW_COLLUM,
+    title
+  }
+}

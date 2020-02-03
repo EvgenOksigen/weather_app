@@ -1,8 +1,10 @@
 import * as types from "./types";
 import createReducer from "../../../utils/createReducer"
 import initialTasks from '../../../api/tasks'
+import initialTaskLists from "../../../api/taskList";
 
 const initialState = {
+  taskList:[],
   allTasks: []
 }
 
@@ -25,18 +27,32 @@ const taskReducer = createReducer(initialState)({
   },
 
   [types.INIT_TASKS]: (state) => {
-    let s = JSON.parse(localStorage.getItem("tasks"));
-    // console.log(s);
-    if(s){
+    initialTaskLists.map(item => {
+      initialTasks.map(task => {
+        if(task.status == item.id){
+          item.tasks.push(task);
+        }
+       })
+      //  console.log(item.tasks);
+    })
+
+
+    let storeTask = JSON.parse(localStorage.getItem("tasks-list"));
+    console.log(storeTask);
+    
+    if(storeTask){
       return{
         ...state,
-        allTasks: s
+        taskList: storeTask,
+        allTasks: storeTask
       }
     }
     else{
-      localStorage.setItem('tasks', JSON.stringify(initialTasks))
+      localStorage.setItem('tasks-list', JSON.stringify(initialTaskLists))
+
       return{
         ...state,
+        taskList: initialTaskLists,
         allTasks: initialTasks
       }
     }
@@ -56,6 +72,28 @@ const taskReducer = createReducer(initialState)({
 
     return{
       allTasks: allTasksUpdate
+    }
+  },
+
+  [types.CREATE_NEW_COLLUM] : (state, {title}) => {
+    
+    const taskListUpdate = state.taskList;
+    let id = state.taskList.length
+    let taskTitle = title.match(/\w+/g).toLocaleString().replace(/[\s.,%]/g, '')
+
+    taskListUpdate.push({
+        id:id,
+        title:taskTitle,
+        tasks:[]
+      })
+      
+      localStorage.setItem('tasks-list', JSON.stringify(taskListUpdate))
+
+    console.log(taskListUpdate);
+
+    return{
+      // ...state,
+      taskList: taskListUpdate,
     }
   }
 });
