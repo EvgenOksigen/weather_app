@@ -22,7 +22,7 @@ const Trello = ({initTask}) => {
     <div className="dashboard-container">
       {loading ?  <Loader/> : (
         <>
-          <h1>Dashboard</h1>
+          <h1 className='p-l-8'>Dashboard</h1>
           <div className="dashboard-content">
             <Dashboard />
           </div>

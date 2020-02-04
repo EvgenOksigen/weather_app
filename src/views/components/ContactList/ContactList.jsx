@@ -2,7 +2,6 @@ import React from "react";
 import { connect } from "react-redux";
 import "./contactList_style.css";
 import {
-  sort,
   deleteContact,
   edit,
   editContact
@@ -80,6 +79,6 @@ const ContactList = ({ data, deleteContact, edit, editContact }) => {
 
 const mapStateToProps = ({ contacts: { data } }) => ({ data });
 
-const mapDispatchToProps = { sort, deleteContact, edit, editContact };
+const mapDispatchToProps = { deleteContact, edit, editContact };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ContactList);

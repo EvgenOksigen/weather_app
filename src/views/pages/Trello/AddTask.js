@@ -15,14 +15,14 @@ import { createTask } from '../../../state/ducks/task/actions';
   }
  }
 
- const AddTask = ({createTask}) =>  {
-
+ const AddTask = ({createTask, idColumn}) =>  {
+ 
    const input = useInputValue('')
 
-   function formSubmit(e){
+   const formSubmit = (e, id=idColumn) => {
      e.preventDefault();
-      createTask(input.value())
-      input.clear()
+      createTask(input.value(), id);
+      input.clear();
    }
 
   return (
@@ -41,8 +41,6 @@ import { createTask } from '../../../state/ducks/task/actions';
     )
  }
 
-// const mapStateToProps = ({ allTasks: { allTasks } }) => ({ allTasks });
- 
 const mapDispatchToProps = { createTask };
 
 export default connect(null, mapDispatchToProps)(AddTask);

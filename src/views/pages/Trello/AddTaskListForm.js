@@ -46,8 +46,8 @@ const AddTaskListForm = ({setTaskList, taskList, createNewCollum }) => {
   )
 }
 
-const mapStateToProps = ({allTasks:taskList}) => ({taskList});
+// const mapStateToProps = ({allTasks:{taskList}}) => ({taskList});
 
 const mapDispatchToProps = {createNewCollum};
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddTaskListForm);
+export default connect(null, mapDispatchToProps)(AddTaskListForm);

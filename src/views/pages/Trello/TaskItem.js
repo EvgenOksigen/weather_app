@@ -1,17 +1,18 @@
 import React from 'react'
 import { connect } from 'react-redux';
-import {taskComplete} from '../../../state/ducks/task/actions'
+import { dragItemToColumn } from '../../../state/ducks/task/actions';
 
-const TaskItem = ({task, index, taskComplete}) =>{
+const TaskItem = ({task, column, allTasks, taskList, dragItemToColumn}) =>{
   const dragNDrop = (e) => {
-    const dragItem = e.target;
+    const dragItem = e.target.parentNode;
     
     dragItem.ondragstart = function() {
       return false;
     };
-    let currentDroppable = null;
     
     dragItem.onmousedown = e => {
+      const currentDroppableId = dragItem.firstChild.attributes['column'].value;
+      
       dragItem.style.position = 'absolute'
       dragItem.style.zIndex = 1000;
       
@@ -29,47 +30,58 @@ const TaskItem = ({task, index, taskComplete}) =>{
   
       function onMouseMove(e) {
         moveAt(e.pageX, e.pageY);
-        console.log(currentDroppable);
-  
+        dragItem.style.transform = 'rotate(3deg)'
+
         dragItem.hidden = true;
         let elemBelow = document.elementFromPoint(e.clientX, e.clientY);
         dragItem.hidden = false;
   
         if (!elemBelow) return;
-  
-        let droppableBelow = elemBelow.closest('.finished');
-  
-  
-        if (currentDroppable != droppableBelow) {
-          if (currentDroppable) {
-            leaveDroppable(currentDroppable);
-          }
-          currentDroppable = droppableBelow;
-          if (currentDroppable) {
-            enterDroppable(currentDroppable);
-          }
-        } 
-       
-
+        
       }
   
       document.addEventListener('mousemove', onMouseMove);
   
       dragItem.onmouseup = (e) => {
+        //
         dragItem.hidden = true;
         let elemBelow = document.elementFromPoint(e.clientX, e.clientY);
         dragItem.hidden = false;
-        let droppableBelow = elemBelow.closest('.finished');
-        let droppableBelowBak = elemBelow.closest('.not-finished')
         
-        if(currentDroppable === elemBelow && currentDroppable === droppableBelow){
-          taskComplete(dragItem.id)
-          dragItem.remove();
+        // let droppableBelow = elemBelow.closest(`.${dragItem.id}`);
+
+        if (elemBelow.id === currentDroppableId) {
+          if(elemBelow.className === 'task-list-wrapper') {
+            dragItem.style.position = ''
+            dragItem.style.left = ''
+            dragItem.style.top = ''
+            dragItem.style.zIndex = '';
+            dragItem.style.transform = ''
+            elemBelow.children[0].children[1].children[0].append(dragItem)
+          }
+        } else { 
+          if(elemBelow.id !== currentDroppableId){
+            
+            console.log(dragItem.firstChild.id);
+
+            let targetTask
+
+            allTasks.map(task=>{ 
+              if(task.id === parseInt(dragItem.firstChild.id)){
+                task.status = parseInt(elemBelow.id)
+                targetTask = task                
+              }
+            });
+            console.log(targetTask);
+
+            taskList[elemBelow.id].tasks.push(targetTask)
+            
+            console.log(taskList[elemBelow.id].tasks);
+
+            // dragItemToColumn(elemBelow.id, dragItem.firstChild.id)
+          }
         }
-        if(elemBelow === droppableBelowBak){
-          taskComplete(dragItem.id)
-          dragItem.remove();
-        }
+
   
           document.removeEventListener('mousemove', onMouseMove);
           dragItem.onmouseup = null;
@@ -77,17 +89,17 @@ const TaskItem = ({task, index, taskComplete}) =>{
       };
     }
     
-    function enterDroppable(elem) {
-      elem.style.background = '#afe892';
-    }
+    // function enterDroppable(elem) {
+    //   elem.style.background = '#afe892';
+    // }
   
-    function enterDroppableBack(elem) {
-      elem.style.background = 'pink';
-    }
+    // function enterDroppableBack(elem) {
+    //   elem.style.background = 'pink';
+    // }
     
-    function leaveDroppable(elem) {
-      elem.style.background = '';
-    }
+    // function leaveDroppable(elem) {
+    //   elem.style.background = '';
+    // }
 
   }
 
@@ -95,24 +107,24 @@ const TaskItem = ({task, index, taskComplete}) =>{
   const style = {
     span:{
       display: 'block',
-      width:'200px',
-      padding:0 ,
-      listStyleType:'none',
-      textAlign:'left'
+      maxWidth:'250px',
+      width:'100%',
     }
   }
   
   return(
-  <span className='taskItem'
+  <span className='task-item'
       style={style.span}
       onMouseOver={dragNDrop}
-      id={task.id}>
+      id={task.id}
+      column={column}
+      >
         {task.title}
   </span>
     )
 }
 
+const mapStateToProps = ({ allTasks: { allTasks, taskList } }) => ({allTasks, taskList});
+const mapDispatchToProps = { dragItemToColumn };
 
-const mapDispatchToProps = { taskComplete};
-
-export default connect(null, mapDispatchToProps)(TaskItem);
+export default connect(mapStateToProps, mapDispatchToProps)(TaskItem);

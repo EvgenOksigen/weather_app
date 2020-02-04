@@ -3,17 +3,16 @@ import TaskList from './TaskList';
 import { connect } from 'react-redux';
 import AddTaskList from './AddTaskList';
 
-const Dashboard = ({taskList}) => {
+const Dashboard = ({allTasks}) => {
 
   return(
     <>
     <div className="board">
-      {taskList.map((column, index)=> {
+      {allTasks.taskList.map((column, index)=> {
         return <TaskList key={column.id} 
                 index={index} 
                 title={column.title} 
-                id={column.id}
-                tasks={column.tasks} />
+                id={column.id} />
       })}
     </div>
     <AddTaskList />
@@ -23,6 +22,6 @@ const Dashboard = ({taskList}) => {
 
 
 
-const mapStateToProps = ({ allTasks: {taskList} })=> ({taskList});
+const mapStateToProps = ({ allTasks })=> ({allTasks});
 
 export default connect(mapStateToProps, null)(Dashboard);

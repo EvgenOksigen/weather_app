@@ -1,15 +1,19 @@
 .dashboard-container {
-  width: 900px;
+  width: 100%;
   margin: auto;
-  min-height: 500px;
   flex: 1;
+  height: 100%;
 }
 .dashboard-content {
   display: flex;
   align-items: baseline;
+  flex: 1;
+  height: 100%;
 }
 .board {
   display: flex;
+  flex: 1;
+  height: 100%;
 }
 
 .task-list-container {
@@ -22,14 +26,31 @@
   justify-content: space-between;
 }
 
-.task-list {
+.task-list-wrapper {
   width: 272px;
   margin: 0 4px;
+  height: 100%;
+  box-sizing: border-box;
+  display: inline-block;
+  vertical-align: top;
+  white-space: nowrap;
+}
+
+.task-list {
+  background-color: #ebecf0;
+  border-radius: 3px;
+  box-sizing: border-box;
   display: flex;
-  justify-content: flex-start;
-  border: 1px solid grey;
   flex-direction: column;
+  max-height: 100%;
+  position: relative;
+  white-space: normal;
+  margin: 0 4px;
+  border: 1px solid grey;
+  justify-content: flex-start;
   background: lightgrey;
+  flex: 1;
+  height: max-content;
 }
 
 .task-listHeader {
@@ -37,7 +58,8 @@
   justify-content: space-evenly;
 }
 
-.taskItem:hover {
+.taskItem:hover,
+.task-item:hover {
   background-color: grey;
   color: azure;
 }
@@ -116,8 +138,8 @@ button {
 }
 
 .add-form-title {
-  height: 33px;
-  font-size: 24px;
+  height: 29px;
+  font-size: 20px;
   margin-bottom: 8px;
 }
 
