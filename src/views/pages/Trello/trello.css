@@ -15,7 +15,9 @@
   flex: 1;
   height: 100%;
 }
-
+.task {
+  z-index: 100;
+}
 .task-list-container {
   flex: 1;
   padding: 8px;
@@ -25,15 +27,30 @@
   flex-direction: column;
   justify-content: space-between;
 }
+.taskItem span {
+  max-width: fit-content;
+}
+.task-list-wrapper {
+  user-select: none;
+}
 
 .task-list-wrapper {
   width: 272px;
-  margin: 0 4px;
+  padding: 0 4px;
   height: 100%;
   box-sizing: border-box;
   display: inline-block;
   vertical-align: top;
   white-space: nowrap;
+}
+.placeholder {
+  width: 246px;
+  height: 24px;
+  border-radius: 3px;
+  background-color: lightgray;
+}
+.task-list-wrapper:hover {
+  background-color: rgba(0, 0, 0, 0.15);
 }
 
 .task-list {
@@ -45,7 +62,6 @@
   max-height: 100%;
   position: relative;
   white-space: normal;
-  margin: 0 4px;
   border: 1px solid grey;
   justify-content: flex-start;
   background: lightgrey;
@@ -58,10 +74,28 @@
   justify-content: space-evenly;
 }
 
-.taskItem:hover,
-.task-item:hover {
-  background-color: grey;
-  color: azure;
+.taskItem {
+  user-select: none;
+  display: block;
+  min-width: 246px;
+  width: 100%;
+  list-style-type: none;
+  height: 24px;
+  background-color: ivory;
+}
+
+.taskItem.ui.droppable {
+  transform: rotate(3deg);
+  position: absolute;
+  z-index: 1000;
+  box-shadow: 0px 12px 24px -6px rgba(9, 30, 66, 0.25);
+  cursor: grabbing;
+  max-width: 246px;
+}
+
+.active {
+  background-color: lightgray;
+  border-radius: 3px;
 }
 
 .task-list .not-finished,
@@ -92,10 +126,6 @@ button {
   color: black;
   box-shadow: 0 0px 6px 0px rgba(0, 0, 0, 0.5);
   transform: rotate(720deg);
-  /*-moz-transform: rotate(90deg); /* Для Firefox */
-  /*-ms-transform: rotate(90deg); /* Для IE */
-  /*-webkit-transform: rotate(90deg); /* Для Safari, Chrome, iOS */
-  /*-o-transform: rotate(90deg); /* Для Opera */
   transition: 0.5s ease-in-out;
   outline: none;
 }

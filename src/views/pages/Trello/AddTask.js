@@ -20,9 +20,9 @@ import { createTask } from '../../../state/ducks/task/actions';
    const input = useInputValue('')
 
    const formSubmit = (e, id=idColumn) => {
-     e.preventDefault();
-      createTask(input.value(), id);
-      input.clear();
+    e.preventDefault();
+    createTask(input.value(), id);
+    input.clear();
    }
 
   return (

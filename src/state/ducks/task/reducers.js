@@ -10,88 +10,70 @@ const initialState = {
 
 const taskReducer = createReducer(initialState)({
   //
-  [types.ADD_TASK]: (state, { title, id }) => {
-    const storeTasks = JSON.parse(localStorage.getItem('tasks'));
-    const columns = state.taskList;
-
-    columns.map(item => {
-      if(item.id === id){
-        item.tasks.push({
-          id : state.allTasks.length,
-          title: title,
-          status: id
-        })
-      }
-    })
-
-    storeTasks.push({
-      id : state.allTasks.length,
-      title: title,
-      status: id
-    })
-
-    localStorage.setItem('tasks', JSON.stringify(storeTasks))
-    
-    return{
-      ...state,
-      taskList: columns,
-      allTasks: storeTasks
-    }
-  },
-
   [types.INIT_TASKS]: (state) => {
-    initialTaskLists.map(item => {
-      initialTasks.map(task => {
-        if(task.status === item.id){
-          item.tasks.push(task);
-        }
-       })
-      //  console.log(item.tasks);
-    })
-
 
     let storeTaskList = JSON.parse(localStorage.getItem("tasks-list"));
     let storeTask = JSON.parse(localStorage.getItem("tasks"));
     
-    if(storeTask){
+    if(!storeTask || !storeTaskList){
+      
+      initialTaskLists.map(item => {
+        initialTasks.map(task => {
+          if(task.status === item.id){
+            item.tasks.push(task);
+          }
+        })
+      }) 
+
+      return{
+        ...state,
+        taskList:initialTaskLists ,
+        allTasks:initialTasks
+      }
+    }
+    else{
       return{
         ...state,
         taskList: storeTaskList,
         allTasks: storeTask
       }
-    }
-    else{
-      localStorage.setItem('tasks-list', JSON.stringify(initialTaskLists))
-      localStorage.setItem('tasks', JSON.stringify(initialTasks))
-
-      return{
-        ...state,
-        taskList: initialTaskLists,
-        allTasks: initialTasks
-      }
+      
     }
   },
-
-  [types.COMPLETE_TASK] : (state, {id}) => {
-
-    let allTasksUpdate = [...state.allTasks];
-
-    allTasksUpdate.map(task => {
-      if(task.id === parseInt(id) ){ //&& task.completed===false
-        task.completed = !task.completed
-      }
-    });
-
-    localStorage.setItem("tasks", JSON.stringify(allTasksUpdate))
+  
+  [types.ADD_TASK]: (state, { title, id }) => {
+    
+    const allTasks = [...state.allTasks];
+    const taskList = [...state.taskList];
+    if (title!== undefined && title !=='')
+    {
+      allTasks.push({
+        id : state.allTasks.length,
+        title: title,
+        status: id
+      })
+  
+      taskList.map(item => {
+        if(item.id === id){
+          item.tasks.push({
+            id : state.allTasks.length,
+            title: title,
+            status: id
+          })
+        }
+      })
+    }
 
     return{
-      allTasks: allTasksUpdate
+      ...state,
+      taskList : taskList,
+      allTasks : allTasks
     }
   },
 
   [types.CREATE_NEW_COLLUM] : (state, {title}) => {
     
-    const taskListUpdate = state.taskList;
+    const taskListUpdate = [...state.taskList]
     let id = state.taskList.length
     let taskTitle = title
 
@@ -100,42 +82,208 @@ const taskReducer = createReducer(initialState)({
         title:taskTitle,
         tasks:[]
       })
-      
-      localStorage.setItem('tasks-list', JSON.stringify(taskListUpdate))
-
     return{
       ...state,
       taskList: taskListUpdate,
     }
   },
 
-  [types.DRAG_ITEM_TO_COLUMN] : (state, {columnId, taskId}) => {
-    const taskListUPD = state.taskList;
-    const allTasksUPD = state.allTasks
+  [types.CHANGE_TASK] : (state , {columnId, id}) =>{
+    const allTasks = [...state.allTasks];
+    const taskList = [...state.taskList];
+    
     let targetTask
 
-    allTasksUPD.map(task=>{ 
-      if(task.id === parseInt(taskId)){
+    allTasks.map(task => { 
+      if(task.id === parseInt(id)){
         targetTask = task
         task.status = parseInt(columnId)        
       }
     });
-
-    taskListUPD[columnId].tasks.push(targetTask)
-
-    console.log(taskListUPD);
     
 
-    // taskListUPD[columnId].tasks.push([...state.allTasks][taskId])
 
-    localStorage.setItem('tasks-list', JSON.stringify(taskListUPD))
-
+    taskList.map(item => {
+      if (item.id === parseInt(columnId)){
+        item.tasks.push(targetTask)
+      }
+    })
+    taskList.map(item => {
+      if (item.id !== parseInt(columnId)){
+        item.tasks = item.tasks.filter(task  => task.id !== targetTask.id)
+      }
+    })
+    
+    console.log(taskList);
     return{
       ...state,
-      taskList: taskListUPD,
-      allTasks: allTasksUPD
+      allTasks:allTasks,
+      taskList:taskList
     }
-  } 
+  },
+
+  [types.DRAG_ITEM_TO_COLUMN] : (state, {columnId, taskId}) => {
+  
+    let allTasks = [...state.allTasks]
+    let taskList = [...state.taskList]
+    let targetTaskList
+    let targetTask
+
+    console.log('before', allTasks);
+
+    allTasks.map(task => {
+      if(task.id === parseInt(taskId)){
+        task.status = parseInt(columnId)
+        return targetTask = task
+      }
+    })
+    console.log('targetTask', targetTask);
+    
+    taskList.map(item=>{
+      if(item.id === parseInt(columnId)){
+        return targetTaskList = item.tasks
+      }
+    })
+    console.log('targetTaskList', targetTaskList);
+    
+    let filterList = targetTaskList.filter(task => task.id !== parseInt(taskId))
+    
+    taskList.map(item=>{
+      if(item.id === parseInt(columnId)){
+        return item.tasks = filterList
+      }else{
+        item.tasks = []
+        allTasks.map(task=>{
+          if(task.status === item.id){
+            item.tasks.push(task)
+          }
+        })
+      }
+    })
+    console.log('taskList UPD',taskList);
+    
+
+    console.log('after',allTasks);
+    console.log('filter', filterList);
+    
+    
+    return{
+      ...state,
+      allTasks
+    }
+  },
+
+ /*  [types.SWAP] : (state, {columnID, taskId, oldColumn}) =>{
+  
+    let allTasks = [...state.allTasks]
+    let taskList = [...state.taskList]
+    let targetTaskList
+    let targetTask
+    let filterList
+
+    console.log('before', allTasks);
+
+    allTasks.map(task => {
+      if(task.id === parseInt(taskId)){
+        task.status = parseInt(columnID)
+        targetTask = task
+      }
+    })
+    console.log('targetTask', targetTask);
+    
+    taskList.map(item=>{
+      if(item.id === parseInt(oldColumn)){
+        targetTaskList = item.tasks
+
+      }
+      // debugger
+      return targetTaskList
+    })
+    console.log('targetTaskList', targetTaskList);
+    // debugger
+    filterList = targetTaskList.filter(task => task.id !== parseInt(taskId))
+    
+    taskList.map(item=>{
+      if(item.id === parseInt(oldColumn)){
+        return item.tasks = filterList
+      }else{
+        item.tasks = []
+        allTasks.map(task=>{
+          if(task.status === item.id){
+            item.tasks.push(task)
+          }
+        })
+      }
+    })
+    console.log('taskList UPD',taskList);
+    
+
+    console.log('after',allTasks);
+    console.log('filter', filterList);
+    
+    
+    return{
+      ...state,
+      allTasks,
+      taskList
+    }
+  }, */
+
+  [types.SWAP] : (state, {columnID, taskId}) =>{
+  
+    let allTasks = [...state.allTasks]
+    let taskList = [...state.taskList]
+    let targetTaskList
+    let targetTask
+    let filterList
+
+    console.log('before', allTasks);
+
+    allTasks.map(task => {
+      if(task.id === parseInt(taskId)){
+        task.status = parseInt(columnID + 1)
+        targetTask = task
+      }
+    })
+    console.log('targetTask', targetTask);
+    
+    taskList.map(item=>{
+      if(item.id === parseInt(columnID)){
+        targetTaskList = item.tasks
+
+      }
+      // debugger
+      return targetTaskList
+    })
+    console.log('targetTaskList', targetTaskList);
+    // debugger
+    filterList = targetTaskList.filter(task => task.id !== parseInt(taskId))
+    
+    taskList.map(item=>{
+      if(item.id === parseInt(columnID)){
+        return item.tasks = filterList
+      }else{
+        item.tasks = []
+        allTasks.map(task=>{
+          if(task.status === item.id){
+            item.tasks.push(task)
+          }
+        })
+      }
+    })
+    console.log('taskList UPD',taskList);
+    
+
+    console.log('after',allTasks);
+    console.log('filter', filterList);
+    
+    
+    return{
+      ...state,
+      allTasks,
+      taskList
+    }
+  }
 });
 
 export default taskReducer;

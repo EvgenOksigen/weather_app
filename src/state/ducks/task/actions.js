@@ -1,9 +1,10 @@
 import * as types from "./types";
 
 
-export const initTask = ()=>{
+export const initTask = ( )=>{
   return{
-    type:types.INIT_TASKS
+    type:types.INIT_TASKS,
+    
   }
 }
 
@@ -14,10 +15,10 @@ export const createTask = (title, id) =>{
     id
   }
 }
-
-export const taskComplete = (id) => {
-  return {
-    type: types.COMPLETE_TASK,
+export const changeTask = (columnId, id) => {
+  return{
+    type: types.CHANGE_TASK,
+    columnId,
     id
   }
 }
@@ -34,5 +35,15 @@ export const dragItemToColumn = (columnId, taskId) => {
     type: types.DRAG_ITEM_TO_COLUMN,
     columnId, 
     taskId
+  }
+}
+
+export const swapToOtherColumn = (columnID, taskId ,oldColumn) => {
+  
+  return{
+    type: types.SWAP,
+    columnID,
+    taskId,
+    oldColumn
   }
 }

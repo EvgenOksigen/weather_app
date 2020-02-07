@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { connect } from 'react-redux';
 import { createNewCollum } from '../../../state/ducks/task/actions';
 
-const AddTaskListForm = ({setTaskList, taskList, createNewCollum }) => {
+const AddTaskListForm = ({setTaskList, createNewCollum }) => {
 
   const [value, setValue] = useState('')
   
