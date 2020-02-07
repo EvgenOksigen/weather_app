@@ -173,7 +173,7 @@ const taskReducer = createReducer(initialState)({
     }
   },
 
- /*  [types.SWAP] : (state, {columnID, taskId, oldColumn}) =>{
+  [types.SWAP] : (state, {columnID, taskId, oldColumn}) =>{
   
     let allTasks = [...state.allTasks]
     let taskList = [...state.taskList]
@@ -227,8 +227,8 @@ const taskReducer = createReducer(initialState)({
       allTasks,
       taskList
     }
-  }, */
-
+  },
+/* 
   [types.SWAP] : (state, {columnID, taskId}) =>{
   
     let allTasks = [...state.allTasks]
@@ -283,7 +283,7 @@ const taskReducer = createReducer(initialState)({
       allTasks,
       taskList
     }
-  }
+  } */
 });
 
 export default taskReducer;

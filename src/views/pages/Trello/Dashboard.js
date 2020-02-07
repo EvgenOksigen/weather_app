@@ -12,10 +12,10 @@ const Dashboard = ({allTasks}) => {
   return(
     <>
     <div className="board">
-      {allTasks.taskList.map((column, index)=> {
+      {allTasks.taskList.map((column)=> {
         return <TaskList title={column.title}
                          id={column.id}
-                         key={index}
+                         key={column.id}
                          taskItems={column.tasks}/>
       })}
     </div>

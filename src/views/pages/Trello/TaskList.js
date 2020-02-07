@@ -13,24 +13,19 @@ const TaskList = ( { taskItems, title, id, dragItemToColumn,swapToOtherColumn } 
   let shiftY
   let oldParent
 
-  const columnEnterHandler = e => {
-    console.log( 'you enter on column № ' + id );
-  }
-
   const liEnterHandler = e => {
-    console.log(e.target.tagName);
     if(e.target.tagName !== "LI"){
       return;
     }else{
       e.target.className='taskItem active' 
     }
   }
+
   const liLeaveHandler = e => {
     e.target.className='taskItem'
     readyToDragFlag = false
     e.target.parentNode.style.className=''
   }
-
 
   const liMouseDownHandler = e => {
     readyToDragFlag = true
@@ -38,8 +33,7 @@ const TaskList = ( { taskItems, title, id, dragItemToColumn,swapToOtherColumn } 
     oldParent = e.target.parentNode;
     shiftX = e.clientX - e.target.getBoundingClientRect().left;
     shiftY = e.clientY - e.target.getBoundingClientRect().top;
-    
-    
+
     e.target.ondragstart = function() {
       return false;
     };
@@ -53,8 +47,6 @@ const TaskList = ( { taskItems, title, id, dragItemToColumn,swapToOtherColumn } 
       
       oldParent.className='placeholder'
 
-      // console.log(oldParent);
-      
       root.append(e.target);
       
       e.target.hidden = true;
@@ -68,10 +60,6 @@ const TaskList = ( { taskItems, title, id, dragItemToColumn,swapToOtherColumn } 
       if(parseInt(droppableBelow.id) !== parseInt(id)){
         droppableBelow.getElementsByTagName('ul')[0].append(oldParent)
         oldParent.hidden=false
-        
-        
-        // changeTask(elemBelow.id, (e.target.children[0].id || e.target.id ))
-
       }
       else{
         oldParent.hidden=false
@@ -88,26 +76,14 @@ const TaskList = ( { taskItems, title, id, dragItemToColumn,swapToOtherColumn } 
   }
 
   const liMouseUpHandler = e =>{
-    // debugger
-    readyToDragFlag = false
-
-    // e.target.parentNode.className=''
-    // oldParent.className=''
-    // oldParent.hidden=false
-    // oldParent.appendChild(e.target)
-    // oldParent.remove()
-    
+    readyToDragFlag = false   
     e.target.hidden = true;
     let elemBelow = document.elementFromPoint(e.clientX, e.clientY).closest('.task-list-wrapper');
     e.target.hidden = false;
-    swapToOtherColumn(elemBelow.id, e.target.id, (e.target.attributes['column'].value))
-    // e.target.remove()
-    // dragItemToColumn(elemBelow.id, (e.target.id ))
-    
-    
 
-    // debugger
-    // dragItemToColumn(droppableBelow.id, e.target.children[0].id)
+    swapToOtherColumn(elemBelow.id, e.target.id, (e.target.attributes['column'].value))
+    e.target.remove()
+    oldParent.remove()
 
   }
   
@@ -115,8 +91,7 @@ const TaskList = ( { taskItems, title, id, dragItemToColumn,swapToOtherColumn } 
   
   return (
     <div className="task-list-wrapper"
-          id={id}
-          onMouseEnter={columnEnterHandler}>
+          id={id}>
       <div className="task-list">
         <>
           <h4 className='p-l-8'>{title}</h4>
@@ -125,18 +100,16 @@ const TaskList = ( { taskItems, title, id, dragItemToColumn,swapToOtherColumn } 
           <ul>
             {taskItems.map((task, index) => {
               return (
-                <div key={index} 
-                     index={index+1}
-                     >
-                  <li 
+                <div key={task.id} 
+                     index={index+1}>
+                  <li key={index}
                       index={index+1} 
                       className='taskItem'
-                      key={index}
-                      // onMouseEnter={liEnterHandler}
-                      // onMouseLeave={liLeaveHandler}
-                      // onMouseDown={liMouseDownHandler}
-                      // onMouseMove={liMouseMoveHandler}
-                      // onMouseUp={liMouseUpHandler}
+                      onMouseEnter={liEnterHandler}
+                      onMouseLeave={liLeaveHandler}
+                      onMouseDown={liMouseDownHandler}
+                      onMouseMove={liMouseMoveHandler}
+                      onMouseUp={liMouseUpHandler}
                       >
                         <TaskItem task={task} 
                                   key={task.id} 

@@ -5,7 +5,6 @@ import { swapToOtherColumn, changeTask } from '../../../state/ducks/task/actions
 const TaskItem = ({task, column, allTasks, changeTask, swapToOtherColumn}) =>{
 
   const clickHandler = e =>{
-    console.log(column, task.id);
     swapToOtherColumn(column, task.id)
   }
 
