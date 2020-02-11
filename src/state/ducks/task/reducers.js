@@ -177,11 +177,9 @@ const taskReducer = createReducer(initialState)({
   
     let allTasks = [...state.allTasks]
     let taskList = [...state.taskList]
-    let targetTaskList
+    let oldTargetTaskList
     let targetTask
     let filterList
-
-    console.log('before', allTasks);
 
     allTasks.map(task => {
       if(task.id === parseInt(taskId)){
@@ -189,19 +187,15 @@ const taskReducer = createReducer(initialState)({
         targetTask = task
       }
     })
-    console.log('targetTask', targetTask);
     
     taskList.map(item=>{
       if(item.id === parseInt(oldColumn)){
-        targetTaskList = item.tasks
-
+        oldTargetTaskList = item.tasks
       }
-      // debugger
-      return targetTaskList
+      return oldTargetTaskList
     })
-    console.log('targetTaskList', targetTaskList);
-    // debugger
-    filterList = targetTaskList.filter(task => task.id !== parseInt(taskId))
+
+    filterList = oldTargetTaskList.filter(task => task.id !== parseInt(taskId))
     
     taskList.map(item=>{
       if(item.id === parseInt(oldColumn)){
@@ -215,75 +209,13 @@ const taskReducer = createReducer(initialState)({
         })
       }
     })
-    console.log('taskList UPD',taskList);
-    
-
-    console.log('after',allTasks);
-    console.log('filter', filterList);
-    
     
     return{
       ...state,
       allTasks,
       taskList
     }
-  },
-/* 
-  [types.SWAP] : (state, {columnID, taskId}) =>{
-  
-    let allTasks = [...state.allTasks]
-    let taskList = [...state.taskList]
-    let targetTaskList
-    let targetTask
-    let filterList
-
-    console.log('before', allTasks);
-
-    allTasks.map(task => {
-      if(task.id === parseInt(taskId)){
-        task.status = parseInt(columnID + 1)
-        targetTask = task
-      }
-    })
-    console.log('targetTask', targetTask);
-    
-    taskList.map(item=>{
-      if(item.id === parseInt(columnID)){
-        targetTaskList = item.tasks
-
-      }
-      // debugger
-      return targetTaskList
-    })
-    console.log('targetTaskList', targetTaskList);
-    // debugger
-    filterList = targetTaskList.filter(task => task.id !== parseInt(taskId))
-    
-    taskList.map(item=>{
-      if(item.id === parseInt(columnID)){
-        return item.tasks = filterList
-      }else{
-        item.tasks = []
-        allTasks.map(task=>{
-          if(task.status === item.id){
-            item.tasks.push(task)
-          }
-        })
-      }
-    })
-    console.log('taskList UPD',taskList);
-    
-
-    console.log('after',allTasks);
-    console.log('filter', filterList);
-    
-    
-    return{
-      ...state,
-      allTasks,
-      taskList
-    }
-  } */
+  }
 });
 
 export default taskReducer;

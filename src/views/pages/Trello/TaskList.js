@@ -12,9 +12,11 @@ const TaskList = ( { taskItems, title, id, dragItemToColumn,swapToOtherColumn } 
   let shiftX
   let shiftY
   let oldParent
+  let oldestParent
 
   const liEnterHandler = e => {
     if(e.target.tagName !== "LI"){
+      // debugger
       return;
     }else{
       e.target.className='taskItem active' 
@@ -31,6 +33,8 @@ const TaskList = ( { taskItems, title, id, dragItemToColumn,swapToOtherColumn } 
     readyToDragFlag = true
 
     oldParent = e.target.parentNode;
+    oldestParent = e.target.parentNode.parentNode; 
+    
     shiftX = e.clientX - e.target.getBoundingClientRect().left;
     shiftY = e.clientY - e.target.getBoundingClientRect().top;
 
@@ -57,7 +61,7 @@ const TaskList = ( { taskItems, title, id, dragItemToColumn,swapToOtherColumn } 
 
       if (!elemBelow) return;
 
-      if(parseInt(droppableBelow.id) !== parseInt(id)){
+      if(parseInt(droppableBelow.id) !== id){
         droppableBelow.getElementsByTagName('ul')[0].append(oldParent)
         oldParent.hidden=false
       }
@@ -81,9 +85,17 @@ const TaskList = ( { taskItems, title, id, dragItemToColumn,swapToOtherColumn } 
     let elemBelow = document.elementFromPoint(e.clientX, e.clientY).closest('.task-list-wrapper');
     e.target.hidden = false;
 
-    swapToOtherColumn(elemBelow.id, e.target.id, (e.target.attributes['column'].value))
-    e.target.remove()
-    oldParent.remove()
+    if(parseInt(elemBelow.id) === id){
+      // debugger // TODO сделать олдПарент = div элементу который хранит в себе перетаскиваемую таску
+      // let oldestParent = oldParent.parentNode(false)
+      elemBelow.getElementsByTagName('ul')[0].append(oldestParent)
+      oldestParent.append(oldParent)
+      oldParent.append(e.target)
+      }else{
+      swapToOtherColumn(elemBelow.id, e.target.id, (e.target.attributes['column'].value))
+      e.target.remove()
+      oldParent.remove()
+    }
 
   }
   

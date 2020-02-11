@@ -34,6 +34,10 @@
   user-select: none;
 }
 
+.card-composer button {
+  margin-top: 10px;
+}
+
 .task-list-wrapper {
   width: 272px;
   padding: 0 4px;
