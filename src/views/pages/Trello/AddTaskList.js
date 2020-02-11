@@ -14,7 +14,7 @@ const AddTaskList = () => {
                        setTaskList={setTaskList} />
       : (!taskListForm && <button onClick={showAddTaskListFormHandler} 
         className="add-list btn">
-          {<i className="fas fa-plus"></i> || <i>&#215;</i>}
+          {<i className="fa fa-plus"></i> || <i>&#215;</i>}
         </button>
       )}
     </div>

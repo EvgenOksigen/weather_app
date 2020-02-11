@@ -1,5 +1,4 @@
 import * as types from "./types";
-// import api from "../../../api";
 import api from '../../../api'; // like api
 
 
@@ -38,18 +37,16 @@ return ({
 export const me = () => dispatch => {
 
   const data = JSON.parse(localStorage.getItem('user'))
-  
-  
-  sin(api.users, 1000).then(() => {
-    api.users.forEach((user)=>{
-      if(user.password === data.password &&
-       (user.nameOrMail === data.username  || user.nameOrMail === data.email)) {
-         dispatch(setMe(user))
-           }
-         }
-       )
     
-    // dispatch(setMe(data));
+    
+    sin(api.users, 0).then(() => {
+      api.users.forEach((user)=>{
+        if(user.password === data.password &&
+          (user.nameOrMail === data.username  || user.nameOrMail === data.email)) {
+          dispatch(setMe(user))
+        }
+      }
+    )
   })
 }
 
@@ -57,7 +54,7 @@ export const signIn = (data) => dispatch => {
 
   
  return (
-   sin(api.users, 1500).then(()=>
+   sin(api.users, 0).then(()=>
    api.users.forEach((user)=>{
      if(user.password === data.password &&
       (user.nameOrMail === data.username  || user.nameOrMail === data.email)) {
@@ -67,12 +64,6 @@ export const signIn = (data) => dispatch => {
       )
     )
   )
-  /* 
-  export const signIn = credentials => dispatch =>
-  api.user
-    .signin(credentials)
-    .then(data => (data && !data.errors ? dispatch(userSignIn(data)) : data));
- */
 }
 
 export const signOut = () => {

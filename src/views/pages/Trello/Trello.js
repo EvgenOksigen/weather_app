@@ -4,6 +4,7 @@ import Loader from './Loader'
 import { connect } from 'react-redux'
 import { initTask } from '../../../state/ducks/task/actions'
 import Dashboard from './Dashboard'
+import Header from '../../components/Header/Header'
 
 const Trello = ({initTask}) => {
   
@@ -14,7 +15,7 @@ const Trello = ({initTask}) => {
       initTask();
       setLoading(false)
     }
-    , 2700);
+    , 0); //2700
     return () => clearTimeout(timer);
   }, [initTask]);
 
@@ -22,9 +23,13 @@ const Trello = ({initTask}) => {
     <div className="dashboard-container">
       {loading ?  <Loader/> : (
         <>
-          <h1 className='p-l-8'>Dashboard</h1>
-          <div className="dashboard-content">
-            <Dashboard />
+          <Header />
+          <div>
+
+            <h1 className='p-l-8'>Simple dashboard</h1>
+            <div className="dashboard-content">
+              <Dashboard />
+            </div>
           </div>
         </>
       )}

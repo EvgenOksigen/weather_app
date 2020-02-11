@@ -5,6 +5,7 @@ import Auth from "../views/pages/Auth/Auth";
 import DefaultRoute from './default'
 import PhoneBook from '../PhoneBook'
 import GuestRoute from './hoc/GuestRoute';
+import Trello from '../views/pages/Trello/Trello'
 
 import { me, setMe } from "../state/ducks/user/actions";
 import PrivateRoute from './hoc/PrivateRoute';
@@ -26,7 +27,7 @@ class App extends React.Component {
 
      if (user) {
       await me();
-      this.setState({ loading: false });
+      // this.setState({ loading: false });
      }
      this.setState({ loading: false });
 
@@ -42,7 +43,7 @@ class App extends React.Component {
 
             <GuestRoute path="/login" exact component={Auth} />
 
-            <PrivateRoute path="/home" exact component={PhoneBook}/>
+            <PrivateRoute path="/home" exact component={Trello}/>
           </Switch>
           )
         

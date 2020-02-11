@@ -6,7 +6,6 @@ import { connect } from "react-redux";
 import { compose } from "redux";
 import { signIn } from "../../../state/ducks/user/actions";
 import Input from "../../components/FormsComponent/SignInput/SignInput";
-// import Input from "../../components/FormsComponent/SignInput/SignInput";
 
 class LoginForm extends Component {
   //
@@ -25,7 +24,7 @@ class LoginForm extends Component {
 
       return signIn(values).then(() => {
         this.setState({ loading: false });
-        message.success("Вы успешно вошли");
+        // message.success("Вы успешно вошли");
       });
     })();
   };

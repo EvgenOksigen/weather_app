@@ -1,8 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux';
-import { swapToOtherColumn, changeTask } from '../../../state/ducks/task/actions';
+import { swapToOtherColumn } from '../../../state/ducks/task/actions';
 
-const TaskItem = ({task, column, allTasks, changeTask, swapToOtherColumn}) =>{
+const TaskItem = ({task, column, swapToOtherColumn}) =>{
 
   const clickHandler = e =>{
     swapToOtherColumn(column, task.id)
@@ -19,7 +19,7 @@ const TaskItem = ({task, column, allTasks, changeTask, swapToOtherColumn}) =>{
     )
 }
 
-const mapStateToProps = ({ allTasks: { allTasks, taskList } }) => ({allTasks, taskList});
+// const mapStateToProps = ({ allTasks: { allTasks, taskList } }) => ({allTasks, taskList});
 const mapDispatchToProps = { swapToOtherColumn };
 
-export default connect(mapStateToProps, mapDispatchToProps)(TaskItem);
+export default connect(null, mapDispatchToProps)(TaskItem);

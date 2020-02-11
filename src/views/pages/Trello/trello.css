@@ -9,10 +9,16 @@
   align-items: baseline;
   flex: 1;
   height: 100%;
+  flex-direction: row;
+  padding: 15px 0 0 15px;
+}
+.dashboard-content button {
+  width: min-content;
+  margin: 0;
 }
 .board {
   display: flex;
-  flex: 1;
+  /* flex: 1; */
   height: 100%;
 }
 .task {
@@ -35,7 +41,12 @@
 }
 
 .card-composer button {
-  margin-top: 10px;
+  margin: 0;
+  margin-left: 5px;
+  width: auto;
+}
+.card-composer input {
+  width: 80%;
 }
 
 .task-list-wrapper {
@@ -119,10 +130,11 @@ button {
   text-align: left;
 }
 .add-list.btn {
+  margin: auto;
   border-radius: 50%;
   background-color: darkgrey;
   color: whitesmoke;
-  /* transition: 0.25s ease-in-out; */
+  width: fit-content;
   outline: none;
 }
 .add-list.btn:hover {

@@ -86,11 +86,13 @@ const TaskList = ( { taskItems, title, id, dragItemToColumn,swapToOtherColumn } 
     e.target.hidden = false;
 
     if(parseInt(elemBelow.id) === id){
-      // debugger // TODO сделать олдПарент = div элементу который хранит в себе перетаскиваемую таску
-      // let oldestParent = oldParent.parentNode(false)
+      oldParent.className='taskItem'
       elemBelow.getElementsByTagName('ul')[0].append(oldestParent)
       oldestParent.append(oldParent)
       oldParent.append(e.target)
+      e.target.className = 'task'
+      e.target.style.top = ''
+      e.target.style.left = ''
       }else{
       swapToOtherColumn(elemBelow.id, e.target.id, (e.target.attributes['column'].value))
       e.target.remove()
@@ -112,8 +114,7 @@ const TaskList = ( { taskItems, title, id, dragItemToColumn,swapToOtherColumn } 
           <ul>
             {taskItems.map((task, index) => {
               return (
-                <div key={task.id} 
-                     index={index+1}>
+                <div key={task.id}>
                   <li key={index}
                       index={index+1} 
                       className='taskItem'
