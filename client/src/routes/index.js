@@ -22,10 +22,12 @@ class App extends React.Component {
   getMe = async () => {
     const { me } = this.props;
 
-    const user = localStorage.getItem("user");
+    const token = localStorage.getItem("token");
 
-     if (user) {
-      await me();
+     if (token) {
+      await me().catch(() => {
+        localStorage.removeItem("token");
+      });
      }
      this.setState({ loading: false });
 

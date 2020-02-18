@@ -1,5 +1,5 @@
 import axios from "axios";
-// import { setHeader } from "./index";
+import { setHeader } from "./index";
 
 export const USER_HOST = 'http://localhost:3010'
 
@@ -8,13 +8,13 @@ export const USER_API = `${USER_HOST}/users`;
 
 export default {
   signin: credentials =>
-    axios.post(`${USER_API}`, credentials).then(res => res && res.data),
+    axios.post(`http://localhost:3010/api/auth/login`, credentials).then(res => res && res.data),
 
-  me: () => {
+    me: () => {
     let config = {
       method: "GET",
-      baseURL: `${USER_API}`,
-      // headers: setHeader()
+      baseURL: `http://localhost:3010/api/auth/users`,
+      headers: setHeader()
     };
 
     return axios(config).then(res => res && res.data);

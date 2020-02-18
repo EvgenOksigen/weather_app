@@ -8,16 +8,16 @@ import store from '../state/store'
 
 export const CanselToken = axios.CancelToken;
 
-// export const setHeader = () => {
-//   const state = store.getState();
-//   const token =
-//     (state.user && state.user.token) || localStorage.getItem("token");
+export const setHeader = () => {
+  const state = store.getState();
+  const token =
+    (state.user && state.user.token) || localStorage.getItem("token");
 
-//   return {
-//     Accept: "application/json",
-//     Authorization: `Bearer ${token}`
-//   };
-// };
+  return {
+    Accept: "application/json",
+    Authorization: `Bearer ${token}`
+  };
+};
 
 export default {
   contacts,

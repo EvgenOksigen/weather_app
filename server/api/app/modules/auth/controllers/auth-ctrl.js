@@ -36,4 +36,15 @@ export default {
 
     ctx.body = {data: token}  // JWT mat` ego !!!
   },
+
+  async logIn(ctx){
+    const {nameOrMail, password} = await ctx.request.body
+
+    const user = await {nameOrMail: ctx.request.body.nameOrMail} //user.findOne({email}) 
+
+    const token = await jwtService.genToken({nameOrMail});  // jwt.sign({email}, JWT_SECRET); ====> mail - object to hasing, JWT_SECRET - strig that help to hashing mail
+      
+    // res.json(credentials)
+    ctx.body = {token: token}
+  },
 };

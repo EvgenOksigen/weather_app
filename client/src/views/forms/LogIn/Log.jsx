@@ -17,23 +17,7 @@ class LoginForm extends Component {
     const { handleSubmit, signIn } = this.props;
 
     handleSubmit(values => {
-      // signIn(values);
-      (async () => {
-        const rawResponse = await fetch("http://localhost:3010/users", {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({ values })
-        });
-        const content = await rawResponse.json();
-
-        console.log(content);
-      })();
-
-      // Axios.post("http://localhost:3010/users").then(res =>
-      //   console.log(res.data))
+      signIn(values).then(/*MESSAGE SUCSESSFULL*/);
     })();
   };
 
