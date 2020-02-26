@@ -1,0 +1,6 @@
+{
+  "env": "prod",
+  "psql": {
+    "uri": "psql-prod"
+  }
+}

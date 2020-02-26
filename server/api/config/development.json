@@ -1,9 +1,0 @@
-{
-  "env": "developer",
-  "mongo": {
-    "uri": "mongo-dev"
-  },
-  "jwt": {
-    "secret": "secret"
-  }
-}
