@@ -2,5 +2,8 @@
   "env": "dev",
   "psql": {
     "uri": "psql-dev"
+  },
+  "jwt": {
+    "secret": "secret_key"
   }
 }

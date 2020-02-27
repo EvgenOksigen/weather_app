@@ -1,8 +1,14 @@
 import {PSQL_URI} from '../config'
 import psqlConnector from './psql-connector'
+import server from '../server'
 
-const connectorsInit = () => {
-  psqlConnector(PSQL_URI);
+const connectorsInit = async () => {
+  try{
+    await psqlConnector(PSQL_URI);
+  } catch(e){
+    server.close()
+    console.log(e);
+  }
 }
 
 export {
