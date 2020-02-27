@@ -1,33 +1,50 @@
-import pick from 'lodash/pick'
 import db from '../../../helpers/db'
 
 export default {
   async signUp(ctx){
     const client = await db.pool.connect()
-    const {pass, login} = ctx.request.body
-    const qweryStr='INSERT INTO test_store(login,password) values($1,$2)';
-
-    await client.query(qweryStr,[login, pass])
-
-    const {rows} = await client.query('select * from test_store')
-
-    ctx.body = rows
+    if(!client){
+      throw Error('Отсутствует клиент подключения к бд')
+    }
+    try{
+      const {pass, login} = ctx.request.body
+      const {rows} = await client.query('select * from test_store')
+      rows.map((user) =>{
+        if(user.login === login){
+          throw Error('Такой пользователь уже есть');
+        } 
+          const qweryStr='INSERT INTO test_store(login,password) values($1,$2)';
+          client.query(qweryStr,[login, pass])
+          console.log('NEW USER HAS BEN CREATED')
+          return ctx.body = 'OK'
+      
+      })
+    }
+    finally{
+      client.release()
+    }
   },
   
   async test(ctx){
-    // ctx.body = {data: {pass: pass, login: login}}
-    ctx.body = ctx.request.body
-    // const client = await db.pool.connect()
-    // try{
-    //   await client.query('insert into test_store (login) values($1)',['abracadabra'])
-
-    //   const {rows} = await client.query('select * from test_store')
-
-    //   ctx.body = rows
-    // }catch(e){
-    //   throw e
-    // }finally{
-    //   client.release()
-    // }
+    const client = await db.pool.connect()
+    if(!client){
+      throw Error('Отсутствует клиент подключения к бд')
+    }
+    try{
+      const {pass, login} = ctx.request.body
+      const {rows} = await client.query('select * from test_store')
+      rows.map((user) =>{
+        if(user.login === login){
+          throw Error('Такой пользователь уже есть');
+        } else{
+          const qweryStr='INSERT INTO test_store(login,password) values($1,$2)';
+          client.query(qweryStr,[login, pass])
+          return
+        }
+      })
+    }
+    finally{
+      client.release()
+    }
   }
 }
