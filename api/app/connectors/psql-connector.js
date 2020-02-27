@@ -1,4 +1,4 @@
-import {Client} from 'pg'
+import {Pool} from 'pg'
 import connectionString from 'pg-connection-string'
 var parse = connectionString.parse
 
@@ -8,11 +8,13 @@ export default (psqlUri)=>{
   }
 
   return new Promise((res, rej)=>{
-    const client = new Client(parse(psqlUri))
-      client.connect()
-      .then(db =>{
-        res(db)
-        console.log('PostgreSQL connected');
+    const pool = new Pool(parse(psqlUri))
+      pool.connect()
+      .then(client =>{
+        res(client)
+        console.log('PostgreSQL database connected : ', client.database);
+        client.release()
+        client.end()
       })
       .catch(err=>{
         rej(err)

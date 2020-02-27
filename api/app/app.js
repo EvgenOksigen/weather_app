@@ -8,6 +8,7 @@ connectorsInit();
 const app = new Koa()
 
 initHandlers(app)
+
 app.use(modules);
 
 app.use(async ctx => {

@@ -1,7 +1,7 @@
 import {PSQL_URI} from '../config'
 import psqlConnector from './psql-connector'
 
-function connectorsInit(){
+const connectorsInit = () => {
   psqlConnector(PSQL_URI);
 }
 
