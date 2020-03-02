@@ -15,6 +15,10 @@ const PSQL_URI = process.env.PSQL_URI || config.get('psql.uri')
 
 const JWT_SECRET = config.get('jwt.secret')
 
+if(!JWT_SECRET){
+  throw Error ('You mast pass jwt secret string')
+}
+
 
 export {
   PORT,

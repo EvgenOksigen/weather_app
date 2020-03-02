@@ -7,7 +7,7 @@ const connectorsInit = async () => {
     await psqlConnector(PSQL_URI);
   } catch(e){
     server.close()
-    console.log(e);
+    console.error(e);
   }
 }
 

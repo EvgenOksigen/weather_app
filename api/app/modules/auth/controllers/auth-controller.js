@@ -1,6 +1,6 @@
 import db from '../../../helpers/db'
 import {JWT_SECRET} from '../../../config'
-import jwt from 'jsonwebtoken'
+import jwtService from '../../../services/jwt-service'
 
 export default {
   async signUp(ctx){
@@ -49,9 +49,10 @@ export default {
       ctx.throw(400, {message: 'User not found'})
     }
 
-    const token = await jwt.sign({login}, JWT_SECRET)
+    const token = await jwtService.genToken({login})
 
     ctx.body={data:token}
+
     }catch (e){
       throw e
     }
