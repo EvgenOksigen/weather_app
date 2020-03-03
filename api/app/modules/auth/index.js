@@ -1,13 +1,15 @@
 import Router from 'koa-router';
 import authCtrl from './controllers/auth-controller';
 import checkUser from '../../handlers/checkUser'
+import jwt from '../../handlers/jwt'
+
 
 const router = new Router({prefix: '/auth'})
 
 router
   .post('/signup', authCtrl.signUp)
   .post('/signin', authCtrl.signIn)
-  .post('/private', checkUser(), ctx => {ctx.body = ctx.user})
-  .post('/test', authCtrl.test)
+  .post('/private', jwt(), checkUser(), ctx => {ctx.body = ctx.user})
+  .get('/test', authCtrl.me)
 
 export default router.routes();

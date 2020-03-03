@@ -17,9 +17,10 @@ export default () => async (ctx, next) => {
       const user = rows.find(user => user.login === login)
 
       ctx.user = user
+      client.release()
     } catch(e) {
       ctx.throw(401, {message: 'Unauthorized. Invalid Token'})
-    }
+    } 
   }
 
   await next();

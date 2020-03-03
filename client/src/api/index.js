@@ -15,7 +15,7 @@ export const setHeader = () => {
 
   return {
     Accept: "application/json",
-    Authorization: `Bearer ${token}`
+    Authorization: token,
   };
 };
 

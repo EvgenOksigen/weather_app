@@ -13,10 +13,11 @@ export default {
     me: () => {
     let config = {
       method: "GET",
-      baseURL: `http://localhost:3010/api/auth/users`,
+      baseURL: `http://localhost:3010/api/auth/test`,
+      // baseURL : 'http://localhost:3010/api/auth/private',
       headers: setHeader()
     };
-
-    return axios(config).then(res => res && res.data);
+    return axios(config).then(res => res && res.data)
   }
+  
 };

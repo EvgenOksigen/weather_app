@@ -43,14 +43,16 @@ export default {
     const {rows} = await client.query('SELECT * from test_store where login = ($1)', [login])
 
     const user = [...rows]
-      console.log(user);
       
     if(!user || user.length===0){
       ctx.throw(400, {message: 'User not found'})
     }
 
     const token = await jwtService.genToken({login})
-
+    
+    await client
+      .query('update test_store set token = ($1) where login = ($2)', [token, login])
+    
     ctx.body={
       data:{
         token:token
@@ -65,26 +67,27 @@ export default {
     }
   },
   
-  async test(ctx){
-    const client = await db.pool.connect()
-    if(!client){
-      throw Error('Отсутствует клиент подключения к бд')
-    }
+  async me(ctx){
+    const { authorization } = ctx.headers;
+
+  if(authorization){
     try{
-      const {pass, login} = ctx.request.body
+      const client = await db.pool.connect()
+      if(!client){
+        ctx.throw(401, { message: 'Отсутствует клиент подключения к бд' })
+      }
+      const { login } = jwtService.verify(authorization);
+
       const {rows} = await client.query('select * from test_store')
-      rows.map((user) =>{
-        if(user.login === login){
-          throw Error('Такой пользователь уже есть');
-        } else{
-          const qweryStr='INSERT INTO test_store(login,password) values($1,$2)';
-          client.query(qweryStr,[login, pass])
-          return
-        }
-      })
-    }
-    finally{
+
+      const user = rows.find(user => user.login === login)
+
+      ctx.body = user
       client.release()
+    } catch(e) {
+      ctx.throw(401, {message: 'Unauthorized. Invalid Token'})
     }
+
+   }
   }
 }
