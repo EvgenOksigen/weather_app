@@ -8,7 +8,7 @@ export const USER_API = `${USER_HOST}/users`;
 
 export default {
   signin: credentials =>
-    axios.post(`http://localhost:3010/api/auth/login`, credentials).then(res => res && res.data),
+    axios.post(`http://localhost:3010/api/auth/signin`, credentials).then(res => res && res.data),
 
     me: () => {
     let config = {

@@ -16,11 +16,14 @@ class LoginForm extends Component {
 
     const { handleSubmit, signIn } = this.props;
 
-    handleSubmit(values => {
-      console.log(values);
-      Axios.post("http://localhost:3010/api/auth/signup", values);
+    handleSubmit(async values => {
+      // console.log(values);
+      // await Axios.post(
+      //   "http://localhost:3010/api/auth/signin",
+      //   values
+      // ).then(res => console.log(res.data));
 
-      // signIn(values).then(/*MESSAGE SUCSESSFULL*/);
+      return await signIn(values);
     })();
   };
 
