@@ -9,6 +9,12 @@ const app = new Koa()
 
 initHandlers(app)
 
+app.use(async(ctx, next) => {
+  ctx.set("Access-Control-Allow-Origin", "http://localhost:3000"); // update to match the domain you will make the request from
+  ctx.set("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  await next()
+});
+
 app.use(modules);
 
 app.use(async ctx => {

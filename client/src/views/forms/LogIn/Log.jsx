@@ -17,7 +17,10 @@ class LoginForm extends Component {
     const { handleSubmit, signIn } = this.props;
 
     handleSubmit(values => {
-      signIn(values).then(/*MESSAGE SUCSESSFULL*/);
+      console.log(values);
+      Axios.post("http://localhost:3010/api/auth/signup", values);
+
+      // signIn(values).then(/*MESSAGE SUCSESSFULL*/);
     })();
   };
 
@@ -31,8 +34,8 @@ class LoginForm extends Component {
         <h1>Log in</h1>
         <div className="auth-form-field">
           <Field
-            label="Email / name"
-            name="nameOrMail"
+            label="Email/login"
+            name="login"
             component={Input}
             type="text"
             placeholder="Email or username"
@@ -42,7 +45,7 @@ class LoginForm extends Component {
         <div className="auth-form-field">
           <Field
             label="Password"
-            name="password"
+            name="pass"
             component={Input}
             type="password"
             placeholder="Password"
