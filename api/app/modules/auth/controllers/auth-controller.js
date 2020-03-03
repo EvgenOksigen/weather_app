@@ -51,7 +51,11 @@ export default {
 
     const token = await jwtService.genToken({login})
 
-    ctx.body={data:token}
+    ctx.body={
+      data:{
+        token:token
+      }
+    }
 
     }catch (e){
       throw e

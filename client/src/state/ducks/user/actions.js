@@ -28,7 +28,8 @@ return ({
 })
 }
 
-export const signIn = (credentials) => dispatch => api.users.signin(credentials).then(d => (d ? dispatch(userSignIn(d)):d))
+export const signIn = (credentials) => dispatch =>
+  api.users.signin(credentials).then(d => (d ? dispatch(userSignIn(d.data)):d))
 
  
 export const me = () => dispatch => 
