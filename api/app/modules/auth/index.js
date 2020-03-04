@@ -10,6 +10,6 @@ router
   .post('/signup', authCtrl.signUp)
   .post('/signin', authCtrl.signIn)
   .post('/private', jwt(), checkUser(), ctx => {ctx.body = ctx.user})
-  .get('/test', authCtrl.me)
+  .get('/me', authCtrl.me)
 
 export default router.routes();
