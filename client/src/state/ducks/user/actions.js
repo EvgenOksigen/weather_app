@@ -16,6 +16,7 @@ export const userSignIn = ( {token} ) => {
 };
 
 export const setMe = user =>{
+  console.log(user);
 return ({
   
   type: types.SET_ME,

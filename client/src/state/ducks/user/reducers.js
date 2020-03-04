@@ -8,8 +8,8 @@ const signInReducer = createReducer(initialState)({
 
   [types.SIGN_IN]: (state, { user }) => {
     return{
-    isLogged: true,
-    ...user
+      ...user,
+      isLogged: true,
   }
 },
 

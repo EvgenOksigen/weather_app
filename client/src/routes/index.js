@@ -10,6 +10,7 @@ import { me, setMe } from "../state/ducks/user/actions";
 import PrivateRoute from './hoc/PrivateRoute';
 
 class App extends React.Component {
+
   state = {
     loading: true,
     resources: []
@@ -32,6 +33,16 @@ class App extends React.Component {
      this.setState({ loading: false });
 
   };
+
+  UNSAFE_componentWillReceiveProps(nextProps) {
+    const { user } = nextProps;
+
+    if (user && user.isLogged && !user.login) {
+      this.setState({ loading: true });
+
+      this.getMe();
+    }
+  }
 
   render () { 
     const {loading}= this.state;
