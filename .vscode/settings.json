@@ -9,5 +9,6 @@
       "server": "localhost",
       "username": "marcus"
     }
-  ]
+  ],
+  "git.ignoreLimitWarning": true
 }
