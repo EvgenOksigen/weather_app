@@ -4,7 +4,7 @@ import Loader from './Loader'
 import { connect } from 'react-redux'
 import { initTask } from '../../../state/ducks/task/actions'
 import Dashboard from './Dashboard'
-import Header from '../../components/Header/Header'
+import Header from '../../layout/Header/Header'
 
 const Trello = ({initTask}) => {
   

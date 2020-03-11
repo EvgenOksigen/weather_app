@@ -6,7 +6,6 @@ import { connect } from "react-redux";
 import { compose } from "redux";
 import { signIn } from "../../../state/ducks/user/actions";
 import Input from "../../components/FormsComponent/SignInput/SignInput";
-import Axios from "axios";
 
 class LoginForm extends Component {
   //

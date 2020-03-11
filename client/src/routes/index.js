@@ -8,6 +8,8 @@ import Trello from '../views/pages/Trello/Trello'
 
 import { me, setMe } from "../state/ducks/user/actions";
 import PrivateRoute from './hoc/PrivateRoute';
+import Home from '../views/pages/Home/Home';
+// import * as resources from '../views/resources'
 
 class App extends React.Component {
 
@@ -54,7 +56,7 @@ class App extends React.Component {
 
             <GuestRoute path="/login" exact component={Auth} />
 
-            <PrivateRoute path="/home" exact component={Trello}/>
+            <PrivateRoute path="/home" exact  component={Home}/>
           </Switch>
           )
         
