@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { NavLink, withRouter } from "react-router-dom";
 import UserLogo from "../../components/UserLogo/UserLogo";
 import { compose } from "redux";
+import { student_mail } from "../../../helpers/validate";
 
 const Header = ({ user, resources, location }) => {
   return (
@@ -11,13 +12,10 @@ const Header = ({ user, resources, location }) => {
       <UserLogo />
       <nav>
         <div className="nav-link-container">
-          {user && user.login === "admin" && (
+          {student_mail(user.email) && (
             <>
               <NavLink className="nav-link" to="#">
-                Study Programm
-              </NavLink>
-              <NavLink className="nav-link" to="#">
-                Add User
+                Tests
               </NavLink>
               <NavLink className="nav-link" to="#">
                 Journal
@@ -31,8 +29,6 @@ const Header = ({ user, resources, location }) => {
 };
 
 const mapStateToProps = ({ user }) => ({ user });
-
-// const mapDispatchToProps = {};
 
 const enhance = compose(connect(mapStateToProps, null), withRouter);
 

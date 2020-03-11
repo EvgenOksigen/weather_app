@@ -4,12 +4,10 @@ import { connect } from "react-redux";
 import Auth from "../views/pages/Auth/Auth";
 import DefaultRoute from './default'
 import GuestRoute from './hoc/GuestRoute';
-import Trello from '../views/pages/Trello/Trello'
 
 import { me, setMe } from "../state/ducks/user/actions";
 import PrivateRoute from './hoc/PrivateRoute';
 import Home from '../views/pages/Home/Home';
-// import * as resources from '../views/resources'
 
 class App extends React.Component {
 
@@ -39,7 +37,7 @@ class App extends React.Component {
   UNSAFE_componentWillReceiveProps(nextProps) {
     const { user } = nextProps;
 
-    if (user && user.isLogged && !user.login) {
+    if (user && user.isLogged && !user.email) {
       this.setState({ loading: true });
 
       this.getMe();

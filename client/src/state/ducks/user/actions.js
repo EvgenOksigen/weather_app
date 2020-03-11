@@ -1,5 +1,6 @@
 import * as types from "./types";
 import api from '../../../api'; // like api
+import moment from 'moment'
 
 
 export const userSignIn = ( {token} ) => { 
@@ -16,6 +17,8 @@ export const userSignIn = ( {token} ) => {
 };
 
 export const setMe = user =>{
+
+user.birth_date = moment(user.birth_date).format("DD-MM-YYYY")
 
 return ({
   type: types.SET_ME,

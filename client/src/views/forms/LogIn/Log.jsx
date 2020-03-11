@@ -31,7 +31,7 @@ class LoginForm extends Component {
         <div className="auth-form-field">
           <Field
             label="Email/login"
-            name="login"
+            name="email"
             component={Input}
             type="text"
             placeholder="Email or username"
