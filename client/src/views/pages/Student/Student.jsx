@@ -1,5 +1,7 @@
 import React from "react";
 import Header from "../../layout/Header/Header";
+import { connect } from "react-redux";
+import { compose } from "redux";
 
 const Student = () => (
   <>
@@ -7,4 +9,9 @@ const Student = () => (
     <div>Student Home Page</div>
   </>
 );
-export default Student;
+
+const mapStateToProps = ({ user }) => ({ user });
+
+const enhance = compose(connect(mapStateToProps, null));
+
+export default enhance(Student);

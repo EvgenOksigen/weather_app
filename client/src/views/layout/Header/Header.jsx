@@ -6,19 +6,20 @@ import UserLogo from "../../components/UserLogo/UserLogo";
 import { compose } from "redux";
 import { student_mail } from "../../../helpers/validate";
 
-const Header = ({ user, resources, location }) => {
+const Header = ({ user, location }) => {
   return (
     <div className="header-container">
       <UserLogo />
+
       <nav>
         <div className="nav-link-container">
           {student_mail(user.email) && (
             <>
-              <NavLink className="nav-link" to="#">
-                Tests
+              <NavLink className="nav-link" to={`${location.pathname}/journal`}>
+                Journal
               </NavLink>
               <NavLink className="nav-link" to="#">
-                Journal
+                Tests
               </NavLink>
             </>
           )}

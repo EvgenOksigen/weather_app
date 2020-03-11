@@ -1,20 +1,17 @@
 import React from "react";
-import { withRouter, Route } from "react-router-dom";
+import { withRouter, Redirect } from "react-router-dom";
 import { compose } from "redux";
 import { connect } from "react-redux";
-import Admin from "../Admin/Admin";
-import Student from "../Student/Student";
-import Teacher from "../Teacher/Teacher";
 import { student_mail } from "../../../helpers/validate";
 
-const Home = ({ location, user }) => (
+const Home = ({ user }) => (
   <>
     {user && user.login === "admin" ? (
-      <Route path="/home" exact render={() => <Admin />} />
+      <Redirect to="/home/admin" />
     ) : student_mail("@student") ? ( //user.email
-      <Route path="/home" exact render={() => <Student />} />
+      <Redirect to="/home/student" />
     ) : (
-      <Route path="/home" exact render={() => <Teacher />} />
+      <Redirect to="/home/teacher" />
     )}
   </>
 );
