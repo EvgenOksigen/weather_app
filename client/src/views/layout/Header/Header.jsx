@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { NavLink, withRouter } from "react-router-dom";
 import UserLogo from "../../components/UserLogo/UserLogo";
 import { compose } from "redux";
-import { student_mail } from "../../../helpers/validate";
+import { isStudent, isKhai_mail, isAdmin } from "../../../helpers/validate";
 
 const Header = ({ user, location }) => {
   return (
@@ -13,7 +13,8 @@ const Header = ({ user, location }) => {
 
       <nav>
         <div className="nav-link-container">
-          {student_mail(user.email) && (
+          {}
+          {(isKhai_mail(user.email) && isStudent(user.email) && (
             <>
               <NavLink className="nav-link" to={`${location.pathname}/journal`}>
                 Journal
@@ -22,7 +23,21 @@ const Header = ({ user, location }) => {
                 Tests
               </NavLink>
             </>
-          )}
+          )) ||
+            (isKhai_mail(user.email) && isAdmin(user.email) && (
+              //Admin
+              <>
+                <NavLink
+                  className="nav-link"
+                  to={`${location.pathname}/journal`}
+                >
+                  Journal
+                </NavLink>
+                <NavLink className="nav-link" to={`${location.pathname}/test`}>
+                  Tests
+                </NavLink>
+              </>
+            ))}
         </div>
       </nav>
     </div>

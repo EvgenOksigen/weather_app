@@ -8,17 +8,17 @@ export default {
       throw Error('Отсутствует клиент подключения к бд')
     }
     try{
-      const {pass, login} = ctx.request.body
+      const {pass, email} = ctx.request.body
       const {rows} = await client.query('select * from test_store')
-      const sameUser = rows.find(user => user.login === login)
+      const sameUser = rows.find(user => user.login === email)
       if(sameUser){
         ctx.throw(400, {message: 'Такой пользователь уже есть'})
         throw Error('Такой пользователь уже есть');
       }else{
-        const qweryStr='INSERT INTO test_store(login,password) values($1,$2)';
-        await client.query(qweryStr,[login, pass])
+        const qweryStr='INSERT INTO test_store(email,password) values($1,$2)';
+        await client.query(qweryStr,[email, pass])
         console.log('NEW USER HAS BEN CREATED')
-        const {rows} = await client.query('SELECT * from test_store where login = ($1)', [login])
+        const {rows} = await client.query('SELECT * from test_store where email = ($1)', [email])
 
         return ctx.body = {data: rows}
       }
