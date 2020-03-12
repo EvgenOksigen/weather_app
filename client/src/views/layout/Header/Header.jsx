@@ -18,7 +18,7 @@ const Header = ({ user, location }) => {
               <NavLink className="nav-link" to={`${location.pathname}/journal`}>
                 Journal
               </NavLink>
-              <NavLink className="nav-link" to="#">
+              <NavLink className="nav-link" to={`${location.pathname}/test`}>
                 Tests
               </NavLink>
             </>
